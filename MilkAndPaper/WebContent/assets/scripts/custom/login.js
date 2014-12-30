@@ -131,7 +131,7 @@ var Login = function () {
         }
 
 
-		$("#select2_sample4").select2({
+		$("#block").select2({
 		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Block',
             allowClear: true,
             formatResult: format,
@@ -140,8 +140,17 @@ var Login = function () {
                 return m;
             }
         });
-		$("#select2_sample").select2({
-		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Flat',
+		$("#floor").select2({
+		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Floor',
+            allowClear: true,
+            formatResult: format,
+            formatSelection: format,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+		$("#flot").select2({
+		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Flot',
             allowClear: true,
             formatResult: format,
             formatSelection: format,
@@ -164,20 +173,30 @@ var Login = function () {
 	            ignore: "",
 	            rules: {
 	                
-	                fullname: {
+	                firstname: {
+	                    required: true
+	                },
+	                lastname: {
 	                    required: true
 	                },
 	                email: {
 	                    required: true,
 	                    email: true
 	                },
-	                address: {
+	                phoneno: {
+	                    required: true,
+	                    email: true
+	                },
+	                
+	                blockno: {
 	                    required: true
 	                },
-	                city: {
+	                
+	                floorno: {
 	                    required: true
 	                },
-	                country: {
+	                
+	                flotno: {
 	                    required: true
 	                },
 

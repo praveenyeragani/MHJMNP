@@ -189,7 +189,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Block No</label>
-			<select name="block" id="select2_sample4" class="select2 form-control" name="blockno">
+			<select  id="block" class="select2 form-control" name="blockno">
 				<option value=""></option>
 				<option value="1">PEARL</option>
 				<option value="2">2</option>
@@ -198,7 +198,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Floor No</label>
-			<select name="flatNo" id="select2_sample" class="select2 form-control" name="floorno">
+			<select  id="floor" class="select2 form-control" name="floorno">
 				<option value=""></option>
 				<option value="01">01</option>
 				<option value="02">02</option>
@@ -219,7 +219,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Flat No</label>
-			<select name="flatNo" id="select2_sample" class="select2 form-control" name="flatno">
+			<select id="flot" class="select2 form-control" name="flotno">
 				<option value=""></option>
 				<option value="01">01</option>
 				<option value="02">02</option>
