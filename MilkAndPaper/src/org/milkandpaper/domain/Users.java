@@ -45,7 +45,7 @@ public class Users {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name = "enabled", nullable = false)
+	@Column(name = "enabled", nullable = false,columnDefinition="boolean default 0")
 	private boolean enabled;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")

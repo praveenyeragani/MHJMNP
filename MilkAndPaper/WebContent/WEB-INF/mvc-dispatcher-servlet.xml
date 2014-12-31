@@ -6,7 +6,7 @@
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-
+  
 	<mvc:resources mapping="/assets/**" location="/assets/"/>  
 	<context:component-scan base-package="org.milkandpaper.controller" />
 	<context:property-placeholder location="classpath:database.properties" />
@@ -22,7 +22,58 @@
 		</property>
 	</bean>
 	
+<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+	</bean>
 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">  
+            <list>  
+                <value>org.milkandpaper.domain.Users</value> 
+                <value>org.milkandpaper.domain.UserRole</value> 
+            </list>  
+        </property> 
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">create</prop> -->
+			</props>
+		</property>
+		
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	
-
+	<bean id="dataDaoImpl" class="org.milkandpaper.dao.DataDaoImpl" />
+	<bean id="dataService" class="org.milkandpaper.services.DataServiceImpl">
+<!-- 		<property name="dataDao" ref="dataDaoImpl"></property> -->
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="praveen201501@gmail.com" />
+		<property name="password" value="krishna2015" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+			</props>
+		</property>
+	</bean>
+	
 </beans>

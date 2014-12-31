@@ -185,7 +185,6 @@ var Login = function () {
 	                },
 	                phoneno: {
 	                    required: true,
-	                    email: true
 	                },
 	                
 	                blockno: {
