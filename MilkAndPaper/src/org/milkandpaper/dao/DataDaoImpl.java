@@ -42,5 +42,14 @@ public class DataDaoImpl implements DataDao {
 	
 	}
 	
+	@Override
+	public List<Users> getUserList(){
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Users> usersList=session.createQuery("from Users").list();
+		session.close();
+		return usersList;
+	}
+	
 	
 }

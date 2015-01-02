@@ -1,5 +1,7 @@
 package org.milkandpaper.services;
 
+import java.util.List;
+
 import org.milkandpaper.dao.DataDao;
 import org.milkandpaper.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,11 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public Users getUser(Users user){
 		return dataDao.getUser(user);
+	}
+	
+	@Override
+	public List<Users> getUserList(){
+		return dataDao.getUserList();
 	}
 	
 
