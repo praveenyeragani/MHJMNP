@@ -5,7 +5,7 @@ import org.milkandpaper.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+@Component
 public class DataServiceImpl implements DataService {
 	
 	@Autowired

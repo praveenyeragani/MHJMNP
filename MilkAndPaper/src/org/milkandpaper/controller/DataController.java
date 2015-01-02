@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mail.MailSender;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+ 
 
 
 @Controller
@@ -23,9 +32,9 @@ public class DataController {
 	@Autowired
 	DataService dataService;
 
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
-	}
+//	public void setDataService(DataService dataService) {
+//		this.dataService = dataService;
+//	}
 
 	@RequestMapping(value="login")
 	public ModelAndView getLoginForm() {
@@ -36,12 +45,22 @@ public class DataController {
 	public ModelAndView registerUser(@ModelAttribute Users user) {
 		dataService.insertUser(user);
 		Users userrow=dataService.getUser(user);
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		Session session = Session.getInstance(props,
+				  new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication("praveen201501@gmail.com", "krishna2015");
+					}
+				  });
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("praveen201501@gmail.com");
 		mail.setTo(userrow.getEmail());
 		mail.setSubject("Re: " + userrow.getFirstname() + ", your message");
 		mail.setText("hi");
-		
 		try {
 			mailSender.send(mail);
 		} catch (Exception e) {
