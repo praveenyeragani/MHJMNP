@@ -71,12 +71,12 @@ public class DataController {
 		return new ModelAndView("login");
 	}
 	
-	@RequestMapping(value="Admin/users")
+	@RequestMapping(value="admin/users")
 	public ModelAndView getUsersList() {
 		List<Users> userList=dataService.getUserList();
 		ModelAndView modelView=new ModelAndView();
 		modelView.addObject("userList",userList);
-		modelView.setViewName("Admin/users");
+		modelView.setViewName("admin/users");
 		return modelView;
 	}
 	
