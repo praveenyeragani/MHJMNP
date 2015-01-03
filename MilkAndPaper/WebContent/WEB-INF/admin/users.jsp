@@ -1527,99 +1527,53 @@ License: You must have a valid license purchased only from themeforest(the above
 								<thead>
 								<tr>
 									<th>
-										 Company
+										First Name
 									</th>
 									<th class="hidden-xs">
-										 Contact
+										 User Name
 									</th>
 									<th>
-										<i class="fa fa-shopping-cart"></i> Total
+										 Contact No
 									</th>
 									<th>
+										Email
 									</th>
+									<th>
+										isRegistered
+									</th>
+									<th>
+										isEnabled
+									</th>
+									
 								</tr>
 								</thead>
 								<tbody>
+								<c:forEach items="${userList}" var="user">
 								<tr>
-									<td class="highlight">
-										<div class="success">
-										</div>
-										<a href="#">
-											 RedBull
-										</a>
-									</td>
-									<td class="hidden-xs">
-										 Mike Nilson
-									</td>
-									<td>
-										 2560.60$
-									</td>
-									<td>
-										<a href="#" class="btn default btn-xs purple">
-											<i class="fa fa-edit"></i> Edit
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td class="highlight">
-										<div class="info">
-										</div>
-										<a href="#">
-											 Google
-										</a>
-									</td>
-									<td class="hidden-xs">
-										 Adam Larson
-									</td>
-									<td>
-										 560.60$
-									</td>
+								<td>
+									 <c:out value="${user.firstname}" />
+								</td>
+								<td>
+									 <c:out value="${user.username}" />
+								</td>
+								<td>
+									 <c:out value="${user.phoneno}" />
+								</td>
+								<td class="center">
+									 <c:out value="${user.email}" />
+								</td>
+								<td class="center">
+									 <c:out value="${user.enabled}" />
+								</td>
+								
+								<td>
 									<td>
 										<a href="#" class="btn default btn-xs black">
 											<i class="fa fa-trash-o"></i> Delete
 										</a>
 									</td>
 								</tr>
-								<tr>
-									<td class="highlight">
-										<div class="important">
-										</div>
-										<a href="#">
-											 Apple
-										</a>
-									</td>
-									<td class="hidden-xs">
-										 Daniel Kim
-									</td>
-									<td>
-										 3460.60$
-									</td>
-									<td>
-										<a href="#" class="btn default btn-xs purple">
-											<i class="fa fa-edit"></i> Edit
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td class="highlight">
-										<div class="warning">
-										</div>
-										<a href="#">
-											 Microsoft
-										</a>
-									</td>
-									<td class="hidden-xs">
-										 Nick
-									</td>
-									<td>
-										 2560.60$
-									</td>
-									<td>
-										<a href="#" class="btn default btn-xs blue">
-											<i class="fa fa-share"></i> Share
-										</a>
-									</td>
-								</tr>
+								</c:forEach>
 								</tbody>
 								</table>
 							</div>

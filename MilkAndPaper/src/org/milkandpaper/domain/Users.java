@@ -45,8 +45,17 @@ public class Users {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name = "enabled", nullable = false,columnDefinition="boolean default 0")
-	private boolean enabled;
+	@Column(name = "enabled", nullable = false,columnDefinition = "int default 1")
+	private Integer enabled=1;
+		
+
+	public Integer getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Integer enabled) {
+		this.enabled = enabled;
+	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
@@ -62,13 +71,15 @@ public class Users {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+	
+	
+//	public boolean isRegistered() {
+//		return isRegistered;
+//	}
+//
+//	public void setRegistered(boolean isRegistered) {
+//		this.isRegistered = isRegistered;
+//	}
 
 	public Set<UserRole> getUserRole() {
 		return userRole;
