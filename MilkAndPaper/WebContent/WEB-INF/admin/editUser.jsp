@@ -1502,208 +1502,176 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->
-			<!-- BEGIN PAGE CONTENT-->
-			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/usersType" method="post">
-			<div class="form-body">
-			<div class="row">
-				<div class="col-md-9">
-					<!-- BEGIN SAMPLE TABLE PORTLET-->
-					<div class="portlet">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-bell-o"></i>Advance Table
-							</div>
-							<div class="tools">
-								<a href="javascript:;" class="collapse">
-								</a>
-								<a href="#portlet-config" data-toggle="modal" class="config">
-								</a>
-								<a href="javascript:;" class="reload">
-								</a>
-								<a href="javascript:;" class="remove">
-								</a>
-							</div>
-						</div>
-						<div class="form-group">
-										<label class="control-label col-md-3">isRegistered/isEnabled
-										<span class="required">
-											 *
-										</span>
-										</label>
-										<div class="col-md-4">
-											<select class="form-control" id="userType" name="userType" onchange="this.form.submit()">
-												<option >Select</option>
-												<option value="1" ${usersType == 1 ? 'selected="selected"' : ''}>To be Approved</option>
-												<option value="2" ${usersType == 2 ? 'selected="selected"' : ''}>Approved</option>
-											</select>
-										</div>
-						</div>
-						
-						<div class="portlet-body">
-							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-advance table-hover">
-								<thead>
-								<tr>
-									<th>
-										First Name
-									</th>
-									<th class="hidden-xs">
-										 User Name
-									</th>
-									<th>
-										 Contact No
-									</th>
-									<th>
-										Email
-									</th>
-									<th>
-										Approve status
-									</th>
-									<th>
-										Enable status
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								<c:if test="${usersType==1}">
-								<c:forEach items="${userList}" var="user">
-								<tr>
-								<td>
-									 <c:out value="${user.firstname}" />
-								</td>
-								<td>
-									 <c:out value="${user.username}" />
-								</td>
-								<td>
-									 <c:out value="${user.phoneno}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.email}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.enabled}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.isApproved}" />
-								</td>
-								<sf:form></sf:form>
-								<td>
-										<c:url value="approve" var="approve"/>
-										<a href="#" onclick="document.getElementById('${user.id}').submit()" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> approve
-											<input type="hidden" name="userid" value="${user.id}" />
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}" action="${approve}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-								</td>
-								<td>
-									
-										<a userid="${user.id}" href="<c:url value="reject" />" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> reject
-										</a>
-								</td>	
-								</tr>
-								</c:forEach>
-								</c:if>
-								<c:if test="${usersType==2}">
-								<c:forEach items="${userList}" var="user">
-								<tr>
-								<td>
-									 <c:out value="${user.firstname}" />
-								</td>
-								<td>
-									 <c:out value="${user.username}" />
-								</td>
-								<td>
-									 <c:out value="${user.phoneno}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.email}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.enabled}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.isApproved}" />
-								</td>
-								<sf:form></sf:form>
-								<td>
-										<c:url value="edit" var="edit"/>
-										<a href="#" onclick="document.getElementById('${user.id}').submit()" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> edit
-											<input type="hidden" name="userid" value="${user.id}" />
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}" action="${edit}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-								</td>
-								<td>
-										<c:url value="disable" var="disable"/>
-										<a userid="${user.id}" href="<c:url value="reject" />" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> disable
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}" action="${disable}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-										
-								</td>	
-								</tr>
-								</c:forEach>
-								</c:if>
-								</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- END SAMPLE TABLE PORTLET-->
+<!-- BEGIN REGISTRATION FORM -->
+	<form class="register-form" action="edit" method="post" commandName="user" >
+		<h3>Sign Up</h3>
+		<p>
+			 Enter your personal details below:
+		</p>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">First Name</label>
+			<div class="input-icon">
+				<i class="fa fa-font"></i>
+				<input class="form-control placeholder-no-fix" type="text" value="${user.firstname}" placeholder="First Name" name="firstname"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Last Name</label>
+			<div class="input-icon">
+				<i class="fa fa-font"></i>
+				<input class="form-control placeholder-no-fix" type="text" placeholder="Last Name" name="lastname"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+			<label class="control-label visible-ie8 visible-ie9">Email</label>
+			<div class="input-icon">
+				<i class="fa fa-envelope"></i>
+				<input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Phone No</label>
+			<div class="input-icon">
+				<i class="fa fa-font"></i>
+				<input class="form-control placeholder-no-fix" type="text" placeholder="Phone No" name="phoneno"/>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Block No</label>
+			<select  id="block" class="select2 form-control" name="blockno">
+				<option value=""></option>
+				<option value="1">PEARL</option>
+				<option value="2">2</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Floor No</label>
+			<select  id="floor" class="select2 form-control" name="floorno">
+				<option value=""></option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Flat No</label>
+			<select id="flot" class="select2 form-control" name="flotno">
+				<option value=""></option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				
+			</select>
+		</div>
+		<p>
+			 Enter your account details below:
+		</p>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Username</label>
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Password</label>
+			<div class="input-icon">
+				<i class="fa fa-lock"></i>
+				<input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="password"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+			<div class="controls">
+				<div class="input-icon">
+					<i class="fa fa-check"></i>
+					<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Re-type Your Password" name="rpassword"/>
 				</div>
 			</div>
-			</div>
-			</sf:form>
-			<!-- END PAGE CONTENT-->
 		</div>
-	</div>
-	<!-- END CONTENT -->
+		<div class="form-group">
+			<label>
+			<input type="checkbox" name="tnc"/> I agree to the
+			<a href="#">
+				 Terms of Service
+			</a>
+			 and
+			<a href="#">
+				 Privacy Policy
+			</a>
+			</label>
+			<div id="register_tnc_error">
+			</div>
+		</div>
+		<div class="form-actions">
+			<button id="register-back-btn" type="button" class="btn">
+			<i class="m-icon-swapleft"></i> Back </button>
+			<button type="submit" id="register-submit-btn" class="btn green pull-right">
+			Sign Up <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
+	</form>
+	<!-- END REGISTRATION FORM -->
+	<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+	 2014 &copy; Metronic. Admin Dashboard Template.
 </div>
-<!-- END CONTAINER -->
-<!-- BEGIN FOOTER -->
-<div class="footer">
-	<div class="footer-inner">
-		 2014 &copy; Metronic by keenthemes.
-	</div>
-	<div class="footer-tools">
-		<span class="go-top">
-			<i class="fa fa-angle-up"></i>
-		</span>
-	</div>
-</div>
-<!-- END FOOTER -->
+<!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="assets/plugins/respond.min.js"></script>
-<script src="assets/plugins/excanvas.min.js"></script> 
-<![endif]-->
-<script src="${pageContext.request.contextPath}/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/respond.min.js"></script>
+	<script src="assets/plugins/excanvas.min.js"></script> 
+	<![endif]-->
+<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<script src="assets/scripts/core/app.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="assets/plugins/select2/select2.min.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="assets/scripts/core/app.js" type="text/javascript"></script>
+<script src="assets/scripts/custom/login.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 <script>
-jQuery(document).ready(function() {       
-   // initiate layout and plugins
-   App.init();
-});
-</script>
+		jQuery(document).ready(function() {     
+		  App.init();
+		  Login.init();
+		});
+	</script>
+<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>

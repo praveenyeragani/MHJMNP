@@ -33,11 +33,11 @@ public class DataDaoImpl implements DataDao {
 	}
 	
 	@Override
-	public Users getUser(Users user){
+	public Users getUser(int userid){
 		
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		Users userrow=(Users)session.createQuery("from Users users where users.username like :name").setString("name",user.getUsername()).uniqueResult();
+		Users userrow=(Users)session.createQuery("from Users users where users.id like :id").setParameter("id",userid).uniqueResult();
 		session.close();
 		return userrow;
 	
@@ -62,6 +62,26 @@ public class DataDaoImpl implements DataDao {
 		int result = query.executeUpdate();
 		session.close();
 		return result;
+	}
+	
+	@Override
+	public List<Users> approvedUsers(){
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Users> usersList=session.createQuery("from Users where enabled=:Enable and isApproved=:Approve").
+							  setParameter("Enable", true).setParameter("Approve", true).list();
+		session.close();
+		return usersList;
+	}
+	
+	@Override
+	public List<Users> toBeApprovedUsers(){
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Users> usersList=session.createQuery("from Users where enabled=:Enable and isApproved=:Approve").
+							  setParameter("Enable", false).setParameter("Approve", false).list();
+		session.close();
+		return usersList;
 	}
 	
 	

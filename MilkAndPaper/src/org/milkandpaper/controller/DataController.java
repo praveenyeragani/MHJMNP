@@ -9,9 +9,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mail.MailSender;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -45,7 +47,7 @@ public class DataController {
 	@RequestMapping(value="registration")
 	public ModelAndView registerUser(@ModelAttribute Users user) {
 		dataService.insertUser(user);
-		Users userrow=dataService.getUser(user);
+		Users userrow=dataService.getUser(user.getId());
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -75,8 +77,9 @@ public class DataController {
 	
 	@RequestMapping(value="admin/users")
 	public ModelAndView getUsersList() {
-		List<Users> userList=dataService.getUserList();
+		List<Users> userList=dataService.toBeApprovedUsers();
 		ModelAndView modelView=new ModelAndView();
+		modelView.addObject("usersType",1);
 		modelView.addObject("userList",userList);
 		modelView.setViewName("admin/users");
 		return modelView;
@@ -93,5 +96,32 @@ public class DataController {
 		return modelView;
 	}
 	
+	@RequestMapping(value="usersType", method = RequestMethod.POST)
+	public ModelAndView usersType(@RequestParam int userType){
+		List<Users> userList=null;
+		ModelAndView modelView=new ModelAndView();
+		if(userType==1){
+			userList=dataService.toBeApprovedUsers();
+			modelView.addObject("usersType",1);
+		}
+		
+		if(userType==2){
+			userList=dataService.approvedUsers();
+			modelView.addObject("usersType",2);
+		}
+		
+		modelView.addObject("userList",userList);
+		modelView.setViewName("admin/users");
+		return modelView;
+	}
+	
+	@RequestMapping(value="edit")
+	public ModelAndView edit(@RequestParam int userid){
+		Users user=dataService.getUser(userid);
+		ModelAndView modelView=new ModelAndView();
+		modelView.addObject("user",user);
+		modelView.setViewName("admin/editUser");
+		return modelView;
+	}
 
 }

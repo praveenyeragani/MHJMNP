@@ -23,8 +23,8 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
-	public Users getUser(Users user){
-		return dataDao.getUser(user);
+	public Users getUser(int userid){
+		return dataDao.getUser(userid);
 	}
 	
 	@Override
@@ -35,6 +35,16 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public int approveUser(int id){
 		return dataDao.approveUser(id);
+	}
+	
+	@Override
+	public List<Users> approvedUsers(){
+		return dataDao.approvedUsers();
+	}
+	
+	@Override
+	public List<Users> toBeApprovedUsers(){
+		return dataDao.toBeApprovedUsers();
 	}
 
 }
