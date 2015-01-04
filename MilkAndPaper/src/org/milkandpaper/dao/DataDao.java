@@ -8,4 +8,5 @@ public interface DataDao {
 	public int insertUser(Users user);
 	public Users getUser(Users user);
 	public List<Users> getUserList();
+	public int approveUser(int id);
 }

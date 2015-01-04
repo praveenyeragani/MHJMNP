@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <!-- 
@@ -1502,6 +1503,8 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
+			<sf:form action="${Url}"  id="form_sample_3" class="form-horizontal">
+			<div class="form-body">
 			<div class="row">
 				<div class="col-md-6">
 					<!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -1539,10 +1542,10 @@ License: You must have a valid license purchased only from themeforest(the above
 										Email
 									</th>
 									<th>
-										isRegistered
+										Approve status
 									</th>
 									<th>
-										isEnabled
+										Enable status
 									</th>
 									
 								</tr>
@@ -1565,13 +1568,25 @@ License: You must have a valid license purchased only from themeforest(the above
 								<td class="center">
 									 <c:out value="${user.enabled}" />
 								</td>
+								<td class="center">
+									 <c:out value="${user.isApproved}" />
+								</td>
+								<td>
+<%-- 										<c:url value="approve" var="approve"/> --%>
+										<a href="#" onclick="document.getElementById('form').submit();" class="btn default btn-xs black">
+											<i class="fa fa-trash-o"></i> approve
+										</a>
+										<sf:form style="visibility:hidden" id="form" action="${pageContext.request.contextPath}/approve" method="post">
+											 <input type="hidden" name="userid" value="${user.id}" />
+											 <input type="submit" value="Approve" />
+										</sf:form>	
 								
 								<td>
-									<td>
-										<a href="#" class="btn default btn-xs black">
-											<i class="fa fa-trash-o"></i> Delete
+									
+										<a userid="${user.id}" href="<c:url value="reject" />" class="btn default btn-xs black">
+											<i class="fa fa-trash-o"></i> reject
 										</a>
-									</td>
+									
 								</tr>
 								</c:forEach>
 								</tbody>
@@ -1582,6 +1597,8 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!-- END SAMPLE TABLE PORTLET-->
 				</div>
 			</div>
+			</div>
+			</sf:form>
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
@@ -1615,7 +1632,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<script src="assets/scripts/core/app.js"></script>
+<script src="${pageContext.request.contextPath}/assets/scripts/core/app.js"></script>
 <script>
 jQuery(document).ready(function() {       
    // initiate layout and plugins

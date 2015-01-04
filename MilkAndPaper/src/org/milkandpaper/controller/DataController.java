@@ -82,7 +82,16 @@ public class DataController {
 		return modelView;
 	}
 	
-	
+
+	@RequestMapping(value="approve")
+	public ModelAndView approveUser(@RequestParam int userid) {
+		List<Users> userList=dataService.getUserList();
+		int approveUser=dataService.approveUser(userid);
+		ModelAndView modelView=new ModelAndView();
+		modelView.addObject("userList",userList);
+		modelView.setViewName("admin/users");
+		return modelView;
+	}
 	
 
 }

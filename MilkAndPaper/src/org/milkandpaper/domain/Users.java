@@ -45,16 +45,20 @@ public class Users {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name = "enabled", nullable = false,columnDefinition = "int default 1")
-	private Integer enabled=1;
-		
+	@Column(name = "enabled", nullable = false,columnDefinition = "boolean default false")
+	private Boolean enabled=false;
+	
+	@Column(name = "isApproved", nullable = false,columnDefinition = "boolean default false")
+	private Boolean isApproved=false;
 
-	public Integer getEnabled() {
-		return enabled;
+
+
+	public Boolean getIsApproved() {
+		return isApproved;
 	}
 
-	public void setEnabled(Integer enabled) {
-		this.enabled = enabled;
+	public void setIsApproved(Boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
@@ -159,5 +163,13 @@ public class Users {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 }

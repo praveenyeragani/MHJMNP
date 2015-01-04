@@ -32,6 +32,9 @@ public class DataServiceImpl implements DataService {
 		return dataDao.getUserList();
 	}
 	
-
+	@Override
+	public int approveUser(int id){
+		return dataDao.approveUser(id);
+	}
 
 }

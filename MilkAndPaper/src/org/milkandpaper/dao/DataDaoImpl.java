@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -49,6 +50,18 @@ public class DataDaoImpl implements DataDao {
 		List<Users> usersList=session.createQuery("from Users").list();
 		session.close();
 		return usersList;
+	}
+	
+	@Override
+	public int approveUser(int id){
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Query query=session.createQuery("Update Users set enabled=:Enable,isApproved=:Approve where id= :id").
+						setParameter("id",id).setParameter("Enable", true).setParameter("Approve", true);
+		
+		int result = query.executeUpdate();
+		session.close();
+		return result;
 	}
 	
 	
