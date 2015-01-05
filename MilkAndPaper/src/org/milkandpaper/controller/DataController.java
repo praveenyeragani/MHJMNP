@@ -88,7 +88,7 @@ public class DataController {
 
 	@RequestMapping(value="approve")
 	public ModelAndView approveUser(@RequestParam int userid) {
-		List<Users> userList=dataService.getUserList();
+		List<Users> userList=dataService.toBeApprovedUsers();
 		int approveUser=dataService.approveUser(userid);
 		ModelAndView modelView=new ModelAndView();
 		modelView.addObject("userList",userList);
@@ -123,5 +123,29 @@ public class DataController {
 		modelView.setViewName("admin/editUser");
 		return modelView;
 	}
+	
+	@RequestMapping(value="reject",method=RequestMethod.POST)
+	public ModelAndView reject(@RequestParam int userid){
+		dataService.rejectUser(userid);
+		ModelAndView modelView=new ModelAndView();
+		List<Users> userList=dataService.toBeApprovedUsers();
+		modelView.addObject("userList",userList);
+		modelView.addObject("user",new Users());
+		modelView.setViewName("admin/users");
+		return modelView;
+	}
+	
+	@RequestMapping(value="disable",method=RequestMethod.POST)
+	public ModelAndView disable(@RequestParam int userid){
+		int disableUser=dataService.disableUser(userid);
+		ModelAndView modelView=new ModelAndView();
+		List<Users> userList=dataService.toBeApprovedUsers();
+		modelView.addObject("userList",userList);
+		modelView.addObject("user",new Users());
+		modelView.setViewName("admin/users");
+		modelView.addObject("usersType",1);
+		return modelView;
+	}
+	
 
 }

@@ -78,11 +78,33 @@ public class DataDaoImpl implements DataDao {
 	public List<Users> toBeApprovedUsers(){
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<Users> usersList=session.createQuery("from Users where enabled=:Enable and isApproved=:Approve").
-							  setParameter("Enable", false).setParameter("Approve", false).list();
+		List<Users> usersList=session.createQuery("from Users where isApproved=:Approve").
+							setParameter("Approve", false).list();
 		session.close();
 		return usersList;
 	}
 	
+	public void rejectUser(int userid){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		Users user =(Users)session.get(Users.class, userid); 
+		session.delete(user);
+		tx.commit();
+		session.close();
+	}
+	
+	public int disableUser(int userid){
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Query query=session.createQuery("Update Users set isApproved=:Approve where id= :id").
+						setParameter("id",userid).setParameter("Approve", false);
+		
+		int result = query.executeUpdate();
+		session.close();
+		return result;
+		
+	}
 	
 }

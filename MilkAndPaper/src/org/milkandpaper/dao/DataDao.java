@@ -11,5 +11,7 @@ public interface DataDao {
 	public int approveUser(int id);
 	public List<Users> approvedUsers();
 	public List<Users> toBeApprovedUsers();
+	public void rejectUser(int userid);
+	public int disableUser(int userid);
 	
 }

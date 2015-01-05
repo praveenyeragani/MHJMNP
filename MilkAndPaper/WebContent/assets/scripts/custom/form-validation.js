@@ -279,10 +279,10 @@ var FormValidation = function () {
                         .closest('.form-group').removeClass('has-error'); // set success class to the control group
                 },
 
-                submitHandler: function (form) {
-                    success3.show();
-                    error3.hide();
-                }
+//                submitHandler: function (form) {
+//                    success3.show();
+//                    error3.hide();
+//                }
 
             });
 

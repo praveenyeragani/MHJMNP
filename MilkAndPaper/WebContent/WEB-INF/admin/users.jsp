@@ -1532,7 +1532,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</label>
 										<div class="col-md-4">
 											<select class="form-control" id="userType" name="userType" onchange="this.form.submit()">
-												<option >Select</option>
+												
 												<option value="1" ${usersType == 1 ? 'selected="selected"' : ''}>To be Approved</option>
 												<option value="2" ${usersType == 2 ? 'selected="selected"' : ''}>Approved</option>
 											</select>
@@ -1599,10 +1599,14 @@ License: You must have a valid license purchased only from themeforest(the above
 										</sf:form>	
 								</td>
 								<td>
-									
-										<a userid="${user.id}" href="<c:url value="reject" />" class="btn default btn-xs black">
+										<c:url value="reject" var="reject"/>
+										<a href="#" onclick="document.getElementById('${user.id}reject').submit()" class="btn default btn-xs black">
 											<i class="fa fa-edit"></i> reject
 										</a>
+										<sf:form style="visibility: hidden" id="${user.id}reject" action="${reject}" method="post">
+											 <input type="hidden" name="userid" value="${user.id}" />
+<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
+										</sf:form>	
 								</td>	
 								</tr>
 								</c:forEach>
@@ -1642,10 +1646,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								</td>
 								<td>
 										<c:url value="disable" var="disable"/>
-										<a userid="${user.id}" href="<c:url value="reject" />" class="btn default btn-xs black">
+										<a href="#" onclick="document.getElementById('${user.id}disable').submit()"  class="btn default btn-xs black">
 											<i class="fa fa-edit"></i> disable
 										</a>
-										<sf:form style="visibility: hidden" id="${user.id}" action="${disable}" method="post">
+										<sf:form style="visibility: hidden" id="${user.id}disable" action="${disable}" method="post">
 											 <input type="hidden" name="userid" value="${user.id}" />
 <!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
 										</sf:form>	

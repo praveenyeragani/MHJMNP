@@ -46,5 +46,15 @@ public class DataServiceImpl implements DataService {
 	public List<Users> toBeApprovedUsers(){
 		return dataDao.toBeApprovedUsers();
 	}
+	
+	@Override
+	public void rejectUser(int userid){
+		dataDao.rejectUser(userid);
+	}
+	
+	@Override
+	public int disableUser(int userid){
+		return dataDao.disableUser(userid);
+	}
 
 }
