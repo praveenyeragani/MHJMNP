@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+ <%@taglib  uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 
 <!-- 
@@ -1503,7 +1504,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/usersType" method="post">
+			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/insertSubscription" method="post" commandName="subscription">
 			<div class="form-body">
 			<div class="row">
 				<div class="col-md-10">
@@ -1524,16 +1525,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								</a>
 							</div>
 						</div>
-						<div class="form-group">
-										<label class="control-label col-md-12">
-										<c:url value="newUser" var="newUser"/>
-										<a href="${newUser}" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> New User Reg
-											
-										</a>	
-										</label>
-										
-						</div>
+						
 						<div class="form-group">
 										<label class="control-label col-md-3">isRegistered/isEnabled
 										<span class="required">
@@ -1541,137 +1533,78 @@ License: You must have a valid license purchased only from themeforest(the above
 										</span>
 										</label>
 										<div class="col-md-4">
-											<select class="form-control" id="userType" name="userType" onchange="this.form.submit()">
+											<select class="form-control" id="SubscriptionType" name="SubscriptionType" onchange="this.form.submit()">
 												
-												<option value="1" ${usersType == 1 ? 'selected="selected"' : ''}>To be Approved</option>
-												<option value="2" ${usersType == 2 ? 'selected="selected"' : ''}>Approved</option>
+												<option value="1" ${SubscriptionType == 1 ? 'selected="selected"' : ''}>Milk</option>
+												<option value="2" ${SubscriptionType == 2 ? 'selected="selected"' : ''}>Paper</option>
 											</select>
 										</div>
 						</div>
-												
-						<div class="portlet-body">
-							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-advance table-hover">
-								<thead>
-								<tr>
-									<th>
-										First Name
-									</th>
-									<th class="hidden-xs">
-										 User Name
-									</th>
-									<th>
-										 Contact No
-									</th>
-									<th>
-										Email
-									</th>
-									<th>
-										Approve status
-									</th>
-									<th>
-										Enable status
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								<c:if test="${usersType==1}">
-								<c:forEach items="${userList}" var="user">
-								<tr>
-								<td>
-									 <c:out value="${user.firstname}" />
-								</td>
-								<td>
-									 <c:out value="${user.username}" />
-								</td>
-								<td>
-									 <c:out value="${user.phoneno}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.email}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.enabled}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.isApproved}" />
-								</td>
-								<sf:form></sf:form>
-								<td>
-										<c:url value="approve" var="approve"/>
-										<a href="#" onclick="document.getElementById('${user.id}').submit()" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> approve
-											
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}" action="${pageContext.request.contextPath}/approve" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-								</td>
-								<td>
-										<c:url value="reject" var="reject"/>
-										<a href="#" onclick="document.getElementById('${user.id}reject').submit()" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> reject
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}reject" action="${reject}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-								</td>	
-								</tr>
-								</c:forEach>
-								</c:if>
-								<c:if test="${usersType==2}">
-								<c:forEach items="${userList}" var="user">
-								<tr>
-								<td>
-									 <c:out value="${user.firstname}" />
-								</td>
-								<td>
-									 <c:out value="${user.username}" />
-								</td>
-								<td>
-									 <c:out value="${user.phoneno}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.email}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.enabled}" />
-								</td>
-								<td class="center">
-									 <c:out value="${user.isApproved}" />
-								</td>
-								<sf:form></sf:form>
-								<td>
-										<c:url value="edit" var="edit"/>
-										<a href="#" onclick="document.getElementById('${user.id}edit').submit()" class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> edit
-											<input type="hidden" name="userid" value="${user.id}" />
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}edit" action="${edit}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
-								</td>
-								<td>
-										<c:url value="disable" var="disable"/>
-										<a href="#" onclick="document.getElementById('${user.id}disable').submit()"  class="btn default btn-xs black">
-											<i class="fa fa-edit"></i> disable
-										</a>
-										<sf:form style="visibility: hidden" id="${user.id}disable" action="${disable}" method="post">
-											 <input type="hidden" name="userid" value="${user.id}" />
-<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
-										</sf:form>	
+						
+						<div class="form-group">
+										<label class="control-label col-md-3">Milk
+										<span class="required">
+											 *
+										</span>
+										</label>
+										<div class="col-md-4">
 										
-								</td>	
-								</tr>
-								</c:forEach>
-								</c:if>
-								</tbody>
-								</table>
-							</div>
+										<select name="milksub.name" class="form-control">
+										
+										    <c:forEach items="${milkList}" var="item" varStatus="loop">
+										        <option value=${loop.index}>${item}</option>
+										    </c:forEach>
+										</select>
+<%-- 											<sf:select path="${milk.name}"  class="form-control"> --%>
+<!-- 												<option value="">Select...</option> -->
+<%-- 												<sf:options items="${milkList}" ></sf:options> --%>
+<%-- 										    </sf:select> --%>
+										    <%-- <sf:select path="name" items="${categorylist}" ></sf:select> --%>
+										</div>
 						</div>
+						
+						
+						<div class="form-group">
+										<label class="control-label col-md-3">quantity
+										<span class="required">
+											 *
+										</span>
+										</label>
+										<div class="col-md-4">
+											<input type="text" name="milksub.quantity" data-required="1" class="form-control"/>
+										</div>
+						</div>
+					
+						
+						<div class="form-group">
+										<label class="control-label col-md-3">Paper
+										<span class="required">
+											 *
+										</span>
+										</label>
+										<div class="col-md-4">
+										
+										<select name="papersub.name"  class="form-control">
+										
+										    <c:forEach items="${paperList}" var="item" varStatus="loop">
+										        <option value=${loop.index}>${item}</option>
+										    </c:forEach>
+										</select>
+<%-- 											<sf:select path="${milk.name}"  class="form-control"> --%>
+<!-- 												<option value="">Select...</option> -->
+<%-- 												<sf:options items="${milkList}" ></sf:options> --%>
+<%-- 										    </sf:select> --%>
+										    
+										</div>
+						</div>
+						
+						<div class="form-actions fluid">
+									<div class="col-md-offset-3 col-md-9">
+										<button type="submit" class="btn green">Submit</button>
+										<button type="button" class="btn default">Cancel</button>
+									</div>
+						</div>
+						 						
 					</div>
 					<!-- END SAMPLE TABLE PORTLET-->
 				</div>

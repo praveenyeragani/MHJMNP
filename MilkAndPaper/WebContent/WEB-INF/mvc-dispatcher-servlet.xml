@@ -9,7 +9,7 @@
   
 	<mvc:resources mapping="/assets/**" location="/assets/" />  
 	<context:component-scan base-package="org.milkandpaper.dao,org.milkandpaper.services,org.milkandpaper.controller" />
-	<context:property-placeholder location="classpath:database.properties" />
+	<context:property-placeholder  location="classpath:database.properties" />
 	<mvc:annotation-driven />
 	
 	<bean
@@ -27,7 +27,7 @@
 		<property name="driverClassName" value="${database.driver}" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.user}" />
-<!-- 		<property name="password" value="${database.password}" /> -->
+		<property name="password" value="${database.password}" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -36,7 +36,10 @@
 		<property name="annotatedClasses">  
             <list>  
                 <value>org.milkandpaper.domain.Users</value> 
-                <value>org.milkandpaper.domain.UserRole</value> 
+                <value>org.milkandpaper.domain.UserRole</value>
+                 <value>org.milkandpaper.domain.MilkSubscription</value>  
+                 <value>org.milkandpaper.domain.PaperSubscription</value>
+                 <value>org.milkandpaper.domain.Subscription</value>
             </list>  
         </property> 
 		<property name="hibernateProperties">
@@ -56,7 +59,8 @@
 
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	
+		
+	<bean id="loginDaoImpl" class="org.milkandpaper.dao.LoginDaoImpl" />
 <!-- 	<bean id="dataDaoImpl" class="org.milkandpaper.dao.DataDaoImpl" /> -->
 <!-- 	<bean id="dataService" class="org.milkandpaper.services.DataServiceImpl"> -->
 <!-- 		<property name="dataDao" ref="dataDaoImpl"></property> -->

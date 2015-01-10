@@ -465,7 +465,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</span>
 										</label>
 										<div class="col-md-4">
-											<input type="text" id="user.name"  value=${user.username} name="user.name" data-required="1" class="form-control"/>
+											<input type="text" id="user.name"  name="user.name" data-required="1" class="form-control" value="${user.username}" />
 										</div>
 									</div>
 									
@@ -511,7 +511,20 @@ License: You must have a valid license purchased only from themeforest(the above
 											
 										</div>
 									</div>
-																
+									<div class="form-group">
+										<label class="control-label col-md-3">User Role
+										<span class="required">
+											 *
+										</span>
+										</label>
+										<div class="col-md-4">
+											<sf:select  path="userRole.role" class="form-control">
+												<option value="">Select...</option>
+												<sf:options items="${userRoles}" itemValue="1"  itemLabel="1" ></sf:options>
+										    </sf:select>
+										    <%-- <sf:select path="name" items="${categorylist}" ></sf:select> --%>
+										</div>
+									</div>					
 								
 								</div>
 								<div class="form-actions fluid">

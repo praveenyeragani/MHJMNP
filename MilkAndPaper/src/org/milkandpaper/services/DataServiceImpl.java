@@ -1,8 +1,11 @@
 package org.milkandpaper.services;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.milkandpaper.dao.DataDao;
+import org.milkandpaper.domain.Subscription;
+import org.milkandpaper.domain.UserRole;
 import org.milkandpaper.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,8 +36,8 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
-	public int approveUser(int id){
-		return dataDao.approveUser(id);
+	public void approveUser(int id,HashSet<UserRole> userRoles){
+		dataDao.approveUser(id,userRoles);
 	}
 	
 	@Override
@@ -55,6 +58,11 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public int disableUser(int userid){
 		return dataDao.disableUser(userid);
+	}
+	
+	@Override
+	public int insertSubscription(Subscription sub){
+		return dataDao.insertSubscription(sub);
 	}
 
 }

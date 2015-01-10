@@ -3,6 +3,7 @@ package org.milkandpaper.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "users"/*, catalog = "spring_social_db"*/)
@@ -51,7 +54,8 @@ public class Users {
 	@Column(name = "isApproved", nullable = false,columnDefinition = "boolean default false")
 	private Boolean isApproved=false;
 
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public Boolean getIsApproved() {
 		return isApproved;
@@ -60,12 +64,6 @@ public class Users {
 	public void setIsApproved(Boolean isApproved) {
 		this.isApproved = isApproved;
 	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserRole> userRole = new HashSet<UserRole>(0);
-
-	
-	
 
 	public String getPassword() {
 		return password;
