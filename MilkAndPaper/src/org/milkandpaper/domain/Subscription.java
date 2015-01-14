@@ -14,8 +14,9 @@ public class Subscription {
 	
 	
 	
-//	@ManyToOne
+	@ManyToOne
 	public MilkSubscription milksub;
+	
 	
 	@Transient
 	public MilkSubscription getMilksub() {
@@ -26,7 +27,7 @@ public class Subscription {
 		this.milksub = milksub;
 	}
 
-//	@ManyToOne
+	@ManyToOne
 	public PaperSubscription papersub;
 	@Transient
 	public PaperSubscription getPapersub() {

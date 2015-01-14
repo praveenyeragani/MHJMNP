@@ -17,7 +17,9 @@ public interface DataService {
 	public List<Users> toBeApprovedUsers();
 	public void rejectUser(int userid);
 	public int disableUser(int userid);
-	public int insertSubscription(Subscription sub);
+	public int insertSubscription(Subscription sub,String username);
+	public List getMilkSubscription(String username);
+	public List getPaperSubscription(String username);
 
 	
 

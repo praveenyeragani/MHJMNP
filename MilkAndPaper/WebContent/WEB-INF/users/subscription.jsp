@@ -1549,7 +1549,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</label>
 										<div class="col-md-4">
 										
-										<select name="milksub.name" class="form-control">
+										<select name="milksub.milkname" class="form-control">
 										
 										    <c:forEach items="${milkList}" var="item" varStatus="loop">
 										        <option value=${loop.index}>${item}</option>
@@ -1584,10 +1584,10 @@ License: You must have a valid license purchased only from themeforest(the above
 										</label>
 										<div class="col-md-4">
 										
-										<select name="papersub.name"  class="form-control">
+										<select name="papersub.papername"  class="form-control">
 										
 										    <c:forEach items="${paperList}" var="item" varStatus="loop">
-										        <option value=${loop.index}>${item}</option>
+										        <option value=${loop.index}>${paperList[loop.index]}</option>
 										    </c:forEach>
 										</select>
 <%-- 											<sf:select path="${milk.name}"  class="form-control"> --%>
@@ -1604,14 +1604,80 @@ License: You must have a valid license purchased only from themeforest(the above
 										<button type="button" class="btn default">Cancel</button>
 									</div>
 						</div>
-						 						
-					</div>
+						</div>
 					<!-- END SAMPLE TABLE PORTLET-->
 				</div>
 			</div>
 			</div>
 			</sf:form>
 			<!-- END PAGE CONTENT-->
+						<div class="portlet-body">
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-advance table-hover">
+								<thead>
+								<tr>
+									<th>
+										User Name
+									</th>
+									<th class="hidden-xs">
+										 Milk Name detials
+									</th>
+									<th>
+										Paper name
+									</th>
+									
+								</tr>
+								</thead>
+								<tbody>
+								
+								
+								<tr>
+								<td>
+									 <c:out value="${username}" />
+								</td>
+								<td>
+									<c:forEach items="${milksub}" var="milk">
+									 <c:out value="${milkList[milk.milkname]} - ${milk.quantity}" /> <br />
+									 </c:forEach>
+								</td>
+								<td>
+									<c:forEach items="${papersub}" var="paper">
+									 <c:out value="${paperList[paper.papername]}" /><br />
+									 </c:forEach>
+								</td>
+								
+								<sf:form></sf:form>
+<!-- 								<td> -->
+<%-- 										<c:url value="approve" var="approve"/> --%>
+<%-- 										<a href="#" onclick="document.getElementById('${user.id}').submit()" class="btn default btn-xs black"> --%>
+<!-- 											<i class="fa fa-edit"></i> approve -->
+											
+<!-- 										</a> -->
+<%-- 										<sf:form style="visibility: hidden" id="${user.id}" action="${pageContext.request.contextPath}/approve" method="post"> --%>
+<%-- 											 <input type="hidden" name="userid" value="${user.id}" /> --%>
+<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
+<%-- 										</sf:form>	 --%>
+<!-- 								</td> -->
+<!-- 								<td> -->
+<%-- 										<c:url value="reject" var="reject"/> --%>
+<%-- 										<a href="#" onclick="document.getElementById('${user.id}reject').submit()" class="btn default btn-xs black"> --%>
+<!-- 											<i class="fa fa-edit"></i> reject -->
+<!-- 										</a> -->
+<%-- 										<sf:form style="visibility: hidden" id="${user.id}reject" action="${reject}" method="post"> --%>
+<%-- 											 <input type="hidden" name="userid" value="${user.id}" /> --%>
+<!-- 											 <input type="submit" class="btn default btn-xs black" value="Approve" /> -->
+<%-- 										</sf:form>	 --%>
+<!-- 								</td>	 -->
+								</tr>
+								
+								</tbody>
+								</table>
+							</div>
+						</div>
+					
+						
+						 						
+					
 		</div>
 	</div>
 	<!-- END CONTENT -->

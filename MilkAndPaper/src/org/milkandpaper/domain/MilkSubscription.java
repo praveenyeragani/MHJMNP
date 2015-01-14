@@ -21,12 +21,40 @@ import org.hibernate.annotations.Cascade;
 public class MilkSubscription {
 
 	@Id @GeneratedValue
-	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	@Column(name = "milkid", unique = true, nullable = false)
+	private int milkid;
 	
-	@Column(name = "name", /*unique = true,*/ nullable = false, length = 45)
-	private String name;
+	public int getMilkid() {
+		return milkid;
+	}
+
+	public void setMilkid(int milkid) {
+		this.milkid = milkid;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", nullable = false)
+	private Users user;
 	
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	@Column(name = "milkname", /*unique = true,*/ nullable = false, length = 45)
+	private String milkname;
+	
+	public String getMilkname() {
+		return milkname;
+	}
+
+	public void setMilkname(String milkname) {
+		this.milkname = milkname;
+	}
+
 	@Column(name = "quantity", /*unique = true,*/ nullable = false, length = 45)
 	private String quantity;
 	
@@ -39,20 +67,7 @@ public class MilkSubscription {
 		this.quantity = quantity;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
+	
 
 }

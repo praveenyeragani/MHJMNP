@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -212,11 +214,16 @@ public class DataController {
 	public ModelAndView subscription() {
 		//List<Users> userList=dataService.toBeApprovedUsers();
 		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		List papersub=dataService.getPaperSubscription(username);
+		List milksub=dataService.getMilkSubscription(username);
 		modelView.addObject("usersType",1);
-//		modelView.addObject("milk",new MilkSubscription());
-//		modelView.addObject("paper",new PaperSubscription());
 		modelView.addObject("paperList",paperList);
 		modelView.addObject("milkList",milkList);
+		modelView.addObject("milksub",milksub);
+		modelView.addObject("papersub",papersub);
+		modelView.addObject("username",username);
 		modelView.addObject("subscription",new Subscription());
 		modelView.setViewName("users/subscription");
 		return modelView;
@@ -226,17 +233,24 @@ public class DataController {
 	public ModelAndView insertSubscription(@ModelAttribute Subscription sub,@RequestParam int SubscriptionType) {
 		//List<Users> userList=dataService.toBeApprovedUsers();
 		ModelAndView modelView=new ModelAndView();
-		dataService.insertSubscription(sub);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		dataService.insertSubscription(sub,username);
+		List papersub=dataService.getPaperSubscription(username);
+		List milksub=dataService.getMilkSubscription(username);
+		modelView.addObject("paperList",paperList);
+		modelView.addObject("milkList",milkList);
+		modelView.addObject("milksub",milksub);
+		modelView.addObject("papersub",papersub);
 		modelView.addObject("SubscriptionType",1);
 		modelView.addObject("milk",new MilkSubscription());
 		modelView.addObject("paper",new PaperSubscription());
 		modelView.addObject("paperList",paperList);
 		modelView.addObject("milkList",milkList);
-		
 		modelView.addObject("subscription",new Subscription());
-		
 		modelView.setViewName("users/subscription");
 		return modelView;
 	}
+	
 	
 }

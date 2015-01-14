@@ -13,26 +13,40 @@ import javax.persistence.Table;
 public class PaperSubscription {
 	
 	@Id @GeneratedValue
-	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	@Column(name = "paperid", unique = true, nullable = false)
+	private int paperid;
+	
 	
 	public int getId() {
-		return id;
+		return paperid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int paperid) {
+		this.paperid = paperid;
 	}
 
-	@Column(name = "name", /*unique = true,*/ nullable = false, length = 45)
-	private String name;
+	@Column(name = "papername", /*unique = true,*/ nullable = false, length = 45)
+	private String papername;
 
-	public String getName() {
-		return name;
+	
+	public String getPapername() {
+		return papername;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPapername(String papername) {
+		this.papername = papername;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", nullable = false)
+	private Users user;
+
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
 }

@@ -105,6 +105,7 @@ public class DataDaoImpl implements DataDao {
 		return usersList;
 	}
 	
+	@Override
 	public void rejectUser(int userid){
 		
 		Session session = sessionFactory.openSession();
@@ -116,6 +117,7 @@ public class DataDaoImpl implements DataDao {
 		session.close();
 	}
 	
+	@Override
 	public int disableUser(int userid){
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -126,15 +128,20 @@ public class DataDaoImpl implements DataDao {
 		return result;
 	}
 	
-	public int insertSubscription(Subscription sub){
+	@Override
+	public int insertSubscription(Subscription sub,String username){
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		MilkSubscription milksub=new MilkSubscription();
 		PaperSubscription paperSub=new PaperSubscription();
 		Serializable id ;
+		@SuppressWarnings("unchecked")
+		Users user=(Users)session.createQuery("from Users users where users.username like :username").setParameter("username",username).uniqueResult();
+		
 		
 		if(sub.getMilksub().getQuantity().equals("")){
 			paperSub=sub.getPapersub();
+			paperSub.setUser(user);
 			session.save(paperSub);
 			tx.commit();
 			id=session.getIdentifier(paperSub);
@@ -143,6 +150,7 @@ public class DataDaoImpl implements DataDao {
 		else{
 
 			milksub=sub.getMilksub();
+			milksub.setUser(user);
 			session.save(milksub);
 			tx.commit();
 			id =session.getIdentifier(milksub);
@@ -150,6 +158,41 @@ public class DataDaoImpl implements DataDao {
 		
 		session.close();
 		return (Integer) id;
+	}
+	
+	@Override
+	public List getMilkSubscription(String username){
+		
+		Session session = sessionFactory.openSession();
+		
+//		List usersList=session.createQuery(" from MilkSubscription milksub,PaperSubscription papersub where milksub.user.username like :username ").
+//							  setParameter("username",username).list();
+		
+//		List usersList=session.createSQLQuery("select MilkSubscription.milkname,MilkSubscription.quantity ,PaperSubscription.papername from MilkSubscription "
+//				+ "join PaperSubscription on MilkSubscription.id in"
+//				+ " (select id from users where users.username like :username) ").
+//				setParameter("username",username).list();
+		
+		@SuppressWarnings("unchecked")
+		List milkSubList=session.createQuery(" from MilkSubscription milksub where milksub.user.username like :username ").
+						setParameter("username",username).list();
+		
+		session.close();
+		return milkSubList;
+	}
+	
+	
+	@Override
+	public List getPaperSubscription(String username){
+		
+		Session session = sessionFactory.openSession();
+	
+		@SuppressWarnings("unchecked")
+		List milkSubList=session.createQuery(" from PaperSubscription papersub where papersub.user.username like :username ").
+						setParameter("username",username).list();
+		
+		session.close();
+		return milkSubList;
 	}
 	
 }

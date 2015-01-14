@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <!-- 
@@ -58,6 +60,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
+	<c:url value="/j_spring_security_check" var="loginUrl" />
+	<form:form class="login-form" action="${loginUrl}" method="post" modelAttribute="users">
 	<form class="login-form" action="index.html" method="post">
 		<h3 class="form-title">Login to your account</h3>
 		<div class="alert alert-danger display-hide">
@@ -127,7 +131,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</a>
 			</p>
 		</div>
-	</form>
+	</form:form>
 	<!-- END LOGIN FORM -->
 	<!-- BEGIN FORGOT PASSWORD FORM -->
 	<form class="forget-form" action="index.html" method="post">

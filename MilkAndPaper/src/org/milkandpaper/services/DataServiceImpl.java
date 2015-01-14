@@ -61,8 +61,20 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
-	public int insertSubscription(Subscription sub){
-		return dataDao.insertSubscription(sub);
+	public int insertSubscription(Subscription sub,String username){
+		return dataDao.insertSubscription(sub,username);
+	}
+	
+	@Override
+	public List getMilkSubscription(String username){
+		
+		return dataDao.getMilkSubscription(username);
+	}
+	
+	@Override
+	public List getPaperSubscription(String username){
+		
+		return dataDao.getPaperSubscription(username);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import org.milkandpaper.domain.Subscription;
 import org.milkandpaper.domain.UserRole;
 import org.milkandpaper.domain.Users;
@@ -18,7 +19,8 @@ public interface DataDao {
 	public List<Users> toBeApprovedUsers();
 	public void rejectUser(int userid);
 	public int disableUser(int userid);
-	public int insertSubscription(Subscription sub);
-
+	public int insertSubscription(Subscription sub,String username);
+	public List getMilkSubscription(String username);
+	public List getPaperSubscription(String username);
 	
 }

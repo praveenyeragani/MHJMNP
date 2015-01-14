@@ -54,7 +54,7 @@ public class Users {
 	@Column(name = "isApproved", nullable = false,columnDefinition = "boolean default false")
 	private Boolean isApproved=false;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade=CascadeType.ALL)
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public Boolean getIsApproved() {
