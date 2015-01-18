@@ -1,6 +1,7 @@
 package org.milkandpaper.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
 import org.milkandpaper.domain.Subscription;
+import org.milkandpaper.domain.UpdateUsers;
 import org.milkandpaper.domain.Users;
 import org.milkandpaper.domain.UserRole;
 import org.milkandpaper.services.DataService;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mail.MailSender;
+
+import com.sun.jmx.snmp.Timestamp;
 
 import java.util.Properties;
 
@@ -65,11 +69,35 @@ public class DataController {
 		this.milkList = Arrays.asList(milkList);
 	}
 	
+	private List<String> floorNos;
+	
+	
+	@Autowired
+	public void setFloorNos(@Value("#{'${floorNos}'.split(',')}") String[] floorNos) {
+		this.floorNos = Arrays.asList(floorNos);
+	}
+	
+	private List<String> flotNos;
+		
+	@Autowired
+	public void setFlotNos(@Value("#{'${flotNos}'.split(',')}")  String[] flotNos) {
+		this.flotNos = Arrays.asList(flotNos);
+	}
+	
+	private List<String> blockNames;
+	
+	@Autowired
+	public void setBlockNames(@Value("#{'${blockNames}'.split(',')}")  String[]  blockNames) {
+		this.blockNames = Arrays.asList(blockNames);
+	}
+
 	@ModelAttribute("sub")
 	public void setAtt(){
 		MilkSubscription milksub;
 		PaperSubscription papersub;
 	}
+	
+	
 
 	@Autowired
 	DataService dataService;
@@ -82,6 +110,111 @@ public class DataController {
 	public ModelAndView getLoginForm() {
 		return new ModelAndView("login");
 	}
+	
+	@RequestMapping(value="profile")
+	public ModelAndView getProfileForm() {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		Users user=dataService.getUserByName(username);
+		modelView.addObject("user",user);
+		modelView.addObject("profileActive","active");
+		
+		modelView.addObject("floorNos",floorNos);
+		modelView.addObject("flotNos",flotNos);
+		modelView.addObject("blockNames",blockNames);
+		modelView.setViewName("users/profile");
+		return modelView;
+	}
+	
+	@RequestMapping(value="updateReqUserDetails")
+	public ModelAndView getUpdateReqUserDetails() {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		List users=dataService.getUpdateReqUserdetails(username);
+		modelView.addObject("user", new Users());
+		modelView.addObject("updateuser", new UpdateUsers());
+		modelView.addObject("users",users);
+		modelView.setViewName("admin/updateRequestUsers");
+		return modelView;
+	}
+	
+	
+	
+	@RequestMapping(value="changePassword",method=RequestMethod.POST)
+	public ModelAndView changePassword(@RequestParam String currentPassword,String newPassword) {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName(); //get logged in username
+		Integer userId=dataService.updatePassword(userName,currentPassword,newPassword);
+		if(userId!=null)
+			modelView.addObject("message","password updated successfully");
+		modelView.addObject("userName",userName);
+		modelView.addObject("passwordActive","active");
+		modelView.setViewName("users/profile");
+		return modelView;
+	}
+	
+	@RequestMapping(value="approveChangeReq",method=RequestMethod.POST)
+	public ModelAndView approveChangeReq(@RequestParam String username,@RequestParam String updateReqTime){
+		ModelAndView modelView=new ModelAndView();
+		dataService.updateUser(username,updateReqTime);
+		List users=dataService.getUpdateReqUserdetails(username);
+		modelView.addObject("user", new Users());
+		modelView.addObject("updateuser", new UpdateUsers());
+		modelView.addObject("users",users);
+		modelView.setViewName("admin/updateRequestUsers");
+		return modelView;
+		
+		
+	}
+	
+	@RequestMapping(value="updateUserProfile",method=RequestMethod.POST)
+	public ModelAndView updateUserProfile(@ModelAttribute UpdateUsers user) {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName(); //get logged in username
+		user.setUsername(userName);
+		Integer userId=dataService.updateUserProfileRequest(user);
+		modelView.addObject("userName",userName);
+		modelView.addObject("profileActive","active");
+		modelView.addObject("floorNos",floorNos);
+		modelView.addObject("flotNos",flotNos);
+		modelView.addObject("blockNames",blockNames);
+		if(userId!=null)
+		modelView.addObject("message","profile update request send successfully");
+		String changedUserName = auth.getName(); //get logged in username
+		Users updatedUser=dataService.getUserByName(changedUserName);
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+ 
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("praveen201501@gmail.com", "krishna2015");
+			}
+		  });
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setFrom("praveen201501@gmail.com");
+		mail.setTo(updatedUser.getEmail());
+		mail.setCc("praveen201501@gmail.com");
+		mail.setSubject("Re: " + updatedUser.getFirstname() + ", your request for profile update is submitted");
+		mail.setText(" your request for profile update is submitted we will get back to you soon");
+		try {
+			mailSender.send(mail);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Can't send message");
+		}
+		modelView.addObject("user",updatedUser);
+		modelView.setViewName("users/profile");
+		return modelView;
+	}
+	
 	
 	@RequestMapping(value="registration")
 	public ModelAndView registerUser(@ModelAttribute Users user) {
@@ -224,6 +357,8 @@ public class DataController {
 		modelView.addObject("milksub",milksub);
 		modelView.addObject("papersub",papersub);
 		modelView.addObject("username",username);
+		Users user=dataService.getUserByName(username);
+		modelView.addObject("user",user);
 		modelView.addObject("subscription",new Subscription());
 		modelView.setViewName("users/subscription");
 		return modelView;

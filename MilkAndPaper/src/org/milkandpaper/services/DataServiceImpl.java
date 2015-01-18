@@ -1,14 +1,18 @@
 package org.milkandpaper.services;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
 import org.milkandpaper.dao.DataDao;
 import org.milkandpaper.domain.Subscription;
+import org.milkandpaper.domain.UpdateUsers;
 import org.milkandpaper.domain.UserRole;
 import org.milkandpaper.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.sun.jmx.snmp.Timestamp;
 
 @Component
 public class DataServiceImpl implements DataService {
@@ -28,6 +32,11 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public Users getUser(int userid){
 		return dataDao.getUser(userid);
+	}
+	
+	@Override
+	public Users getUserByName(String username){
+		return dataDao.getUserByName(username);
 	}
 	
 	@Override
@@ -76,5 +85,32 @@ public class DataServiceImpl implements DataService {
 		
 		return dataDao.getPaperSubscription(username);
 	}
-
+	
+	@Override
+	public int updatePassword(String userName,String oldPassword,String newPassword){
+		return dataDao.updatePassword(userName, oldPassword,newPassword);
+	}
+	
+	@Override
+	public int updateUserProfile(Users user){
+		
+		return dataDao.updateUserProfile(user);
+		
+	}
+	
+	@Override
+	public int updateUserProfileRequest(UpdateUsers user){
+		return dataDao.updateUserProfileRequest(user);
+	}
+	
+	@Override
+	public List getUpdateReqUserdetails(String userName){
+		return dataDao.getUpdateReqUserdetails(userName);
+	}
+	
+	@Override
+	public int updateUser(String userName,String updateReqTime){
+		return dataDao.updateUser(userName,updateReqTime);
+	}
+	
 }

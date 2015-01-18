@@ -40,6 +40,7 @@
                  <value>org.milkandpaper.domain.MilkSubscription</value>  
                  <value>org.milkandpaper.domain.PaperSubscription</value>
                  <value>org.milkandpaper.domain.Subscription</value>
+                  <value>org.milkandpaper.domain.UpdateUsers</value>
             </list>  
         </property> 
 		<property name="hibernateProperties">

@@ -1,5 +1,6 @@
 package org.milkandpaper.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 
 @Entity
-@Table(name = "users"/*, catalog = "spring_social_db"*/)
-public class Users {
+@Table(name = "UpdateUsers"/*, catalog = "spring_social_db"*/)
+public class UpdateUsers {
 
 	@Id @GeneratedValue
 	private int id;
@@ -53,50 +54,20 @@ public class Users {
 	@Column(name = "username", /*unique = true,*/ nullable = false, length = 45)
 	private String username;
 
-	@Column(name = "password", nullable = false, length = 60)
+	@Column(name = "password", length = 60)
 	private String password;
-
-	@Column(name = "enabled", nullable = false,columnDefinition = "boolean default false")
-	private Boolean enabled=false;
 	
-	@Column(name = "isApproved", nullable = false,columnDefinition = "boolean default false")
-	private Boolean isApproved=false;
+	@Column(name = "updateReqTime", nullable = false)
+	private Date updateReqTime=new Date();
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade=CascadeType.ALL)
-	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
-	public Boolean getIsApproved() {
-		return isApproved;
+
+	public Date getUpdateReqTime() {
+		return updateReqTime;
 	}
 
-	public void setIsApproved(Boolean isApproved) {
-		this.isApproved = isApproved;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	
-//	public boolean isRegistered() {
-//		return isRegistered;
-//	}
-//
-//	public void setRegistered(boolean isRegistered) {
-//		this.isRegistered = isRegistered;
-//	}
-
-	public Set<UserRole> getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(Set<UserRole> userRole) {
-		this.userRole = userRole;
+	public void setUpdateReqTime(Date updateReqTime) {
+		this.updateReqTime = updateReqTime;
 	}
 
 	public int getId() {
@@ -163,11 +134,4 @@ public class Users {
 		this.username = username;
 	}
 
-	public Boolean getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
 }

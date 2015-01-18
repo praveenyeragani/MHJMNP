@@ -1,6 +1,9 @@
 package org.milkandpaper.dao;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,10 +16,15 @@ import org.hibernate.Transaction;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
 import org.milkandpaper.domain.Subscription;
+import org.milkandpaper.domain.UpdateUsers;
 import org.milkandpaper.domain.UserRole;
 import org.milkandpaper.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.sun.jmx.snmp.Timestamp;
+
+
 
 
 @Component
@@ -47,6 +55,72 @@ public class DataDaoImpl implements DataDao {
 		session.close();
 		return userrow;
 	
+	}
+	
+	public Users getUserByName(String username){
+		
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Users userrow=(Users)session.createQuery("from Users users where users.username like :username").setParameter("username",username).uniqueResult();
+		session.close();
+		return userrow;
+		
+	}
+	
+	public int updatePassword(String userName,String oldPassword,String newPassword){
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		Query query=session.createQuery("Update Users set password=:newPassword where username= :userName and password =:oldPassword").
+						setParameter("userName",userName).setParameter("newPassword", newPassword).setParameter("oldPassword", oldPassword);
+		int id=query.executeUpdate();
+		tx.commit();
+		session.close();
+		return id;
+	}
+	
+	@Override
+	@Transactional
+	public int updateUserProfileRequest(UpdateUsers user){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(user);
+		tx.commit();
+		Serializable id = session.getIdentifier(user);
+		session.close();
+		return (Integer)id;
+		
+	} 
+	
+	@Override
+	public List getUpdateReqUserdetails(String userName){
+		
+		Session session = sessionFactory.openSession();
+		List usersList=session.createQuery("from UpdateUsers updateuser,Users user  where updateuser.username=user.username").list();
+		session.close();
+		return usersList;
+		
+	}
+
+	public int updateUserProfile(Users user){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		Query query=session.createQuery("Update Users set firstname=:firstname,lastname=:lastname,email=:email,phoneno=:phoneno,"
+							+ "blockname=:blockname,floorno=:floorno,flotno=:flotno where username= :userName").
+						setParameter("firstname",user.getFirstname()).setParameter("lastname",user.getLastname()).
+						setParameter("blockname", user.getBlockname()).setParameter("floorno", user.getFloorno()).
+						setParameter("flotno", user.getFlotno()).setParameter("flotno", user.getFlotno()).
+						setParameter("userName",user.getUsername()).setParameter("email",user.getEmail()).
+						setParameter("phoneno",user.getPhoneno());
+	
+		int id=query.executeUpdate();
+		tx.commit();
+		session.close();
+		return (Integer)id;
+		
 	}
 	
 	@Override
@@ -115,6 +189,37 @@ public class DataDaoImpl implements DataDao {
 		session.delete(user);
 		tx.commit();
 		session.close();
+	}
+	
+	@Override
+	public int updateUser(String userName,String updateReqTime){
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+		Date date = formatter.parse(updateReqTime);
+		
+		UpdateUsers user=(UpdateUsers)session.createQuery("from UpdateUsers where username=:userName and updateReqTime=:updateReqTime").
+						setParameter("userName", userName).setParameter("updateReqTime", date).uniqueResult();
+		@SuppressWarnings("unchecked")
+		Query query=session.createQuery("Update Users set firstname=:firstname,lastname=:lastname,email=:email,phoneno=:phoneno,"
+							+ "blockname=:blockname,floorno=:floorno,flotno=:flotno where username= :userName").
+						setParameter("firstname",user.getFirstname()).setParameter("lastname",user.getLastname()).
+						setParameter("blockname", user.getBlockname()).setParameter("floorno", user.getFloorno()).
+						setParameter("flotno", user.getFlotno()).setParameter("flotno", user.getFlotno()).
+						setParameter("userName",userName).setParameter("email",user.getEmail()).
+						setParameter("phoneno",user.getPhoneno());
+		
+		int id=query.executeUpdate();
+		tx.commit();
+		session.close();
+		return (Integer)id;
+		}
+		catch (ParseException e) {
+				e.printStackTrace();
+		}
+		
+		return 0;
 	}
 	
 	@Override
