@@ -1,4 +1,3 @@
-
 <%@include file="../common/header.jsp" %>
 <%@include file="../common/navigation.jsp" %>
 	<!-- BEGIN PAGE HEADER-->

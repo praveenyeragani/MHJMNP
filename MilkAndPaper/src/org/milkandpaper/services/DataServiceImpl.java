@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.milkandpaper.dao.DataDao;
+import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.Subscription;
 import org.milkandpaper.domain.UpdateUsers;
 import org.milkandpaper.domain.UserRole;
@@ -113,4 +114,18 @@ public class DataServiceImpl implements DataService {
 		return dataDao.updateUser(userName,updateReqTime);
 	}
 	
+	@Override
+	public int insertFeedback(Feedback feedback){
+		return dataDao.insertFeedback(feedback);
+	}
+	
+	@Override
+	public List getFeedbacks(){
+		return dataDao.getFeedbacks();
+	}
+	
+	@Override
+	public int closeFeedback(int id){
+		return dataDao.closeFeedback(id);
+	}
 }

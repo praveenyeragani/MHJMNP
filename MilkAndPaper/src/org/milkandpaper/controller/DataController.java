@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
 import org.milkandpaper.domain.Subscription;
@@ -124,6 +125,44 @@ public class DataController {
 		modelView.addObject("flotNos",flotNos);
 		modelView.addObject("blockNames",blockNames);
 		modelView.setViewName("users/profile");
+		return modelView;
+	}
+	
+	@RequestMapping(value="feedbackSubmit")
+	public ModelAndView feedbackSubmit(@ModelAttribute Feedback feedback) {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		Users user=dataService.getUserByName(username);
+		feedback.setUser(user);
+		dataService.insertFeedback(feedback);
+		modelView.setViewName("users/feedback");
+		return modelView;
+	}
+	
+	@RequestMapping(value="getFeedbacks")
+	public ModelAndView getFeedbacks() {
+		ModelAndView modelView=new ModelAndView();
+		List feedbacks=dataService.getFeedbacks();
+		modelView.addObject("feedbacks", feedbacks);
+		modelView.setViewName("admin/usersFeedback");
+		return modelView;
+	}
+	
+	@RequestMapping(value="feedback")
+	public ModelAndView getFeedbackForm() {
+		ModelAndView modelView=new ModelAndView();
+		modelView.setViewName("users/feedback");
+		return modelView;
+	}
+	
+	@RequestMapping(value="close")
+	public ModelAndView closeFeedback(@RequestParam int id) {
+		ModelAndView modelView=new ModelAndView();
+		dataService.closeFeedback(id);
+		List feedbacks=dataService.getFeedbacks();
+		modelView.addObject("feedbacks", feedbacks);
+		modelView.setViewName("admin/usersFeedback");
 		return modelView;
 	}
 	
@@ -343,7 +382,7 @@ public class DataController {
 	
 	
 	
-	@RequestMapping(value="users/subscription", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="users/subscription")
 	public ModelAndView subscription() {
 		//List<Users> userList=dataService.toBeApprovedUsers();
 		ModelAndView modelView=new ModelAndView();

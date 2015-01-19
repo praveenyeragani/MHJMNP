@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
 import org.milkandpaper.domain.Subscription;
@@ -98,6 +99,17 @@ public class DataDaoImpl implements DataDao {
 		
 		Session session = sessionFactory.openSession();
 		List usersList=session.createQuery("from UpdateUsers updateuser,Users user  where updateuser.username=user.username").list();
+		session.close();
+		return usersList;
+		
+	}
+	
+	
+	@Override
+	public List getFeedbacks(){
+		
+		Session session = sessionFactory.openSession();
+		List usersList=session.createQuery("from Users user,Feedback feedback  where feedback.user.id=user.id").list();
 		session.close();
 		return usersList;
 		
@@ -300,4 +312,29 @@ public class DataDaoImpl implements DataDao {
 		return milkSubList;
 	}
 	
+	@Override
+	public int insertFeedback(Feedback feedback){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(feedback);
+		tx.commit();
+		Serializable id = session.getIdentifier(feedback);
+		session.close();
+		return (Integer) id;
+		
+	}
+	
+	@Override
+	public int closeFeedback(int id){
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query query=session.createQuery("Update Feedback  set status=:status where user.id=:id").
+						setParameter("id", id).setParameter("status", "close");
+		int updateId =query.executeUpdate();
+		tx.commit();
+		session.close();
+		return updateId;
+		
+	}
 }

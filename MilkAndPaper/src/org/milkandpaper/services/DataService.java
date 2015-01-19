@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.Subscription;
 import org.milkandpaper.domain.UpdateUsers;
 import org.milkandpaper.domain.UserRole;
@@ -30,4 +31,7 @@ public interface DataService {
 	public int updateUserProfileRequest(UpdateUsers user);
 	public List getUpdateReqUserdetails(String userName);
 	public int updateUser(String userName,String updateReqTime);
+	public int insertFeedback(Feedback feedback);
+	public List getFeedbacks();
+	public int closeFeedback(int id);
 }
