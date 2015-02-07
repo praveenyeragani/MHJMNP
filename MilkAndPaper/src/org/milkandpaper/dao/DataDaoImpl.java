@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.milkandpaper.domain.ChangeSub;
 import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
@@ -337,4 +338,18 @@ public class DataDaoImpl implements DataDao {
 		return updateId;
 		
 	}
+	
+	@Override
+	public int insertChangeSub(ChangeSub changeSub){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(changeSub);
+		tx.commit();
+		Serializable id = session.getIdentifier(changeSub);
+		session.close();
+		return (Integer) id;
+		
+	} 
+	
 }

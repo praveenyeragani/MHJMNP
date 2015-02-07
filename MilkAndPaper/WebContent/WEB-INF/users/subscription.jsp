@@ -32,7 +32,7 @@
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/insertSubscription" method="post" commandName="subscription">
+			<sf:form class="form-horizontal" id="form_sample_3" action="${pageContext.request.contextPath}/insertSubscription" method="post" commandName="subscription">
 			<div class="form-body">
 			<div class="row">
 				<div class="col-md-10">
@@ -85,7 +85,7 @@
 										</span>
 										</label>
 										<div class="col-md-4">
-											<input type="text" name="milksub.quantity" data-required="1" class="form-control"/>
+											<input type="text" name="quantity" data-required="1" class="form-control"/>
 										</div>
 						</div>
 					

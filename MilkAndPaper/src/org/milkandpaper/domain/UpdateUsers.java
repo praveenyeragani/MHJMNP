@@ -60,7 +60,8 @@ public class UpdateUsers {
 	@Column(name = "updateReqTime", nullable = false)
 	private Date updateReqTime=new Date();
 
-
+	@Column(name = "stop_req_type", nullable = false)
+	private String stopReqType;
 
 	public Date getUpdateReqTime() {
 		return updateReqTime;

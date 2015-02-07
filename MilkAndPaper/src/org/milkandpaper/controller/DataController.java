@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.milkandpaper.domain.ChangeSub;
 import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.MilkSubscription;
 import org.milkandpaper.domain.PaperSubscription;
@@ -153,6 +154,31 @@ public class DataController {
 	public ModelAndView getFeedbackForm() {
 		ModelAndView modelView=new ModelAndView();
 		modelView.setViewName("users/feedback");
+		return modelView;
+	}
+	
+	@RequestMapping(value="users/changeSub")
+	public ModelAndView getChangeSub() {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		Users user=dataService.getUserByName(username);
+		modelView.addObject("user",user);
+		modelView.setViewName("users/subChangeReq");
+		return modelView;
+	}
+	
+	@RequestMapping(value="change",method=RequestMethod.POST)
+	public ModelAndView insertChangeSub(@ModelAttribute ChangeSub changeSub) {
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName(); //get logged in username
+		Users user=dataService.getUserByName(username);
+		changeSub.setUser(user);
+		dataService.insertChangeSub(changeSub);
+		modelView.addObject("user",user);
+		modelView.addObject("changeSub",new ChangeSub() );
+		modelView.setViewName("users/subChangeReq");
 		return modelView;
 	}
 	
@@ -425,6 +451,8 @@ public class DataController {
 		modelView.setViewName("users/subscription");
 		return modelView;
 	}
+	
+	
 	
 	
 }

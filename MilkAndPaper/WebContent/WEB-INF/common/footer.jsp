@@ -22,6 +22,7 @@
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/js/bootstrap2-typeahead.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
@@ -30,10 +31,39 @@
 <!-- END CORE PLUGINS -->
 <script type="text/javascript" src="assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
 <script src="${pageContext.request.contextPath}/assets/scripts/core/app.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/clockface/js/clockface.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/jquery-validation/dist/additional-methods.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/bootstrap-markdown/lib/markdown.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/autocomplete.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/scripts/core/app.js"></script>
+<script src="${pageContext.request.contextPath}/assets/scripts/custom/components-pickers.js"></script>
+<script src="${pageContext.request.contextPath}/assets/scripts/custom/form-validation.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {       
    // initiate layout and plugins
    App.init();
+   ComponentsPickers.init();
+   FormValidation.init();
 });
 </script>
 </body>

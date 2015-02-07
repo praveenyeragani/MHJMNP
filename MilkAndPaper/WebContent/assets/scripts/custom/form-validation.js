@@ -44,6 +44,7 @@ var FormValidation = function () {
                     category: {
                         required: true
                     }
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -162,6 +163,7 @@ var FormValidation = function () {
             var form3 = $('#form_sample_3');
             var error3 = $('.alert-danger', form3);
             var success3 = $('.alert-success', form3);
+           
 
             //IMPORTANT: update CKEDITOR textarea with actual content before submit
             form3.on('submit', function() {
@@ -175,6 +177,7 @@ var FormValidation = function () {
                 errorClass: 'help-block', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",
+                
                 rules: {
                     name: {
                         minlength: 2,
@@ -225,7 +228,32 @@ var FormValidation = function () {
 					},
 					orderno: {
 						required:true,
-					}
+					},
+					
+
+					from:{
+						required:true,
+						
+					},
+					
+					
+					
+					to:{
+						required:true,
+						greaterThan: "#from"
+						
+					},
+					
+					
+					quantity:{
+						required:true,
+						
+					},
+					
+					description:{
+						required:true,
+					},
+					
 					
 					
                 },

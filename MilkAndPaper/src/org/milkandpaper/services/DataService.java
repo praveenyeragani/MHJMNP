@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.milkandpaper.domain.ChangeSub;
 import org.milkandpaper.domain.Feedback;
 import org.milkandpaper.domain.Subscription;
 import org.milkandpaper.domain.UpdateUsers;
@@ -34,4 +35,5 @@ public interface DataService {
 	public int insertFeedback(Feedback feedback);
 	public List getFeedbacks();
 	public int closeFeedback(int id);
+	public int insertChangeSub(ChangeSub changeSub);
 }

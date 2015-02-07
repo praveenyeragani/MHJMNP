@@ -42,6 +42,7 @@
                  <value>org.milkandpaper.domain.Subscription</value>
                  <value>org.milkandpaper.domain.UpdateUsers</value>
                  <value>org.milkandpaper.domain.Feedback</value>
+                 <value>org.milkandpaper.domain.ChangeSub</value>
             </list>  
         </property> 
 		<property name="hibernateProperties">
