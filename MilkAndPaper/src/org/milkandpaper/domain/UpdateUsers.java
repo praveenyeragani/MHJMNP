@@ -35,14 +35,16 @@ public class UpdateUsers {
 	private Integer phoneno;
 	
 	@Column(name = "blockname", /*unique = true,*/ nullable = false, length = 45)
-	private String blockname;
+	private String blockName;
 	
-	public String getBlockname() {
-		return blockname;
+	
+
+	public String getBlockName() {
+		return blockName;
 	}
 
-	public void setBlockname(String blockname) {
-		this.blockname = blockname;
+	public void setBlockName(String blockName) {
+		this.blockName = blockName;
 	}
 
 	@Column(name = "floorno", /*unique = true,*/ nullable = false, length = 45)
@@ -60,8 +62,7 @@ public class UpdateUsers {
 	@Column(name = "updateReqTime", nullable = false)
 	private Date updateReqTime=new Date();
 
-	@Column(name = "stop_req_type", nullable = false)
-	private String stopReqType;
+
 
 	public Date getUpdateReqTime() {
 		return updateReqTime;

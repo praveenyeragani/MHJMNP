@@ -29,29 +29,24 @@
 						</span>
 					</a>
 					<ul class="sub-menu">
-						<li class="${profile}">
-							<a href="${pageContext.request.contextPath}/users/profile">
-								 Profile
+						<li class="${usersView}">
+							<a href="${pageContext.request.contextPath}/admin/users">
+								 Users
 							</a>
 						</li>
 						
 						<li class="${sub}">
-							<a href="${pageContext.request.contextPath}/users/subscription">
-								 Subscription
+							<a href="${pageContext.request.contextPath}/admin/getFeedbacks">
+								 User Feedbacks
 							</a>
 						</li>
 						
 						<li class="${feedback}">
-							<a href="${pageContext.request.contextPath}/users/feedback">
-								 Complaint or Feedback
+							<a href="${pageContext.request.contextPath}/admin/updateReqUserDetails">
+								 Profile Update Requests
 							</a>
 						</li>
-						
-						<li class="${changeSub}">
-							<a href="${pageContext.request.contextPath}/users/changeSub">
-								 Change Subscription
-							</a>
-						</li>
+											
 											
 					</ul>
 				</li>

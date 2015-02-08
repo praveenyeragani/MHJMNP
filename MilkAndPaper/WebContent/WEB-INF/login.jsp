@@ -52,9 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <body class="login">
 <!-- BEGIN LOGO -->
 <div class="logo">
-	<a href="index.html">
-		<img src="assets/img/logo-big.png" alt=""/>
-	</a>
+	<h4 style="color:white">MYHOME JEWEL MILK AND PAPER</h4>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
@@ -92,27 +90,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			Login <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>
-		<div class="login-options">
-			<h4>Or login with</h4>
-			<ul class="social-icons">
-				<li>
-					<a class="facebook" data-original-title="facebook" href="#">
-					</a>
-				</li>
-				<li>
-					<a class="twitter" data-original-title="Twitter" href="#">
-					</a>
-				</li>
-				<li>
-					<a class="googleplus" data-original-title="Goole Plus" href="#">
-					</a>
-				</li>
-				<li>
-					<a class="linkedin" data-original-title="Linkedin" href="#">
-					</a>
-				</li>
-			</ul>
-		</div>
+		
 		<div class="forget-password">
 			<h4>Forgot your password ?</h4>
 			<p>
@@ -155,7 +133,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	</form>
 	<!-- END FORGOT PASSWORD FORM -->
 	<!-- BEGIN REGISTRATION FORM -->
-	<form class="register-form" action="registration" >
+	<form:form class="register-form" action="registration" method="post">
 		<h3>Sign Up</h3>
 		<p>
 			 Enter your personal details below:
@@ -193,11 +171,17 @@ License: You must have a valid license purchased only from themeforest(the above
 		
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Block No</label>
-			<select  id="block" class="select2 form-control" name="blockno">
-				<option value=""></option>
-				<option value="1">PEARL</option>
-				<option value="2">2</option>
-				
+			<select  id="block" class="select2 form-control" name="blockName">
+				<option></option>
+				<option value="agate">AGATE</option>
+				<option value="amethyst">AMETHYST</option>
+				<option value="emerald">EMERALD</option>
+				<option value="jade">JADE</option>
+				<option value="pearl">PEARL</option>
+				<option value="rosequartz">ROSEQUARTZ</option>
+				<option value="sapphire">SAPPHIRE</option>
+				<option value="turquoise">TURQUOISE</option>
+					
 			</select>
 		</div>
 		<div class="form-group">
@@ -223,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Flat No</label>
-			<select id="flot" class="select2 form-control" name="flotno">
+			<select id="flot" class="form-control" name="flotno">
 				<option value=""></option>
 				<option value="01">01</option>
 				<option value="02">02</option>
@@ -247,7 +231,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<label class="control-label visible-ie8 visible-ie9">Username</label>
 			<div class="input-icon">
 				<i class="fa fa-user"></i>
-				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username"/>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" id="username" name="username" readonly="readonly"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -287,13 +271,13 @@ License: You must have a valid license purchased only from themeforest(the above
 			Sign Up <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>
-	</form>
+	</form:form>
 	<!-- END REGISTRATION FORM -->
 </div>
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-	 2014 &copy; Metronic. Admin Dashboard Template.
+	 2015 &copy; MYHOME JEWEL MILK AND PAPER.
 </div>
 <!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -323,6 +307,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		jQuery(document).ready(function() {     
 		  App.init();
 		  Login.init();
+		  if($("blockName").val()!=''&&$("floorno").val()!=''&&$("flotno").val()!='')
+			  $("username").val($("blockName").val()+$("blockName").val()+$("blockName").val());
+		  
 		});
 	</script>
 <!-- END JAVASCRIPTS -->

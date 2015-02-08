@@ -124,7 +124,7 @@ public class DataDaoImpl implements DataDao {
 		Query query=session.createQuery("Update Users set firstname=:firstname,lastname=:lastname,email=:email,phoneno=:phoneno,"
 							+ "blockname=:blockname,floorno=:floorno,flotno=:flotno where username= :userName").
 						setParameter("firstname",user.getFirstname()).setParameter("lastname",user.getLastname()).
-						setParameter("blockname", user.getBlockname()).setParameter("floorno", user.getFloorno()).
+						setParameter("blockname", user.getBlockName()).setParameter("floorno", user.getFloorno()).
 						setParameter("flotno", user.getFlotno()).setParameter("flotno", user.getFlotno()).
 						setParameter("userName",user.getUsername()).setParameter("email",user.getEmail()).
 						setParameter("phoneno",user.getPhoneno());
@@ -218,7 +218,7 @@ public class DataDaoImpl implements DataDao {
 		Query query=session.createQuery("Update Users set firstname=:firstname,lastname=:lastname,email=:email,phoneno=:phoneno,"
 							+ "blockname=:blockname,floorno=:floorno,flotno=:flotno where username= :userName").
 						setParameter("firstname",user.getFirstname()).setParameter("lastname",user.getLastname()).
-						setParameter("blockname", user.getBlockname()).setParameter("floorno", user.getFloorno()).
+						setParameter("blockname", user.getBlockName()).setParameter("floorno", user.getFloorno()).
 						setParameter("flotno", user.getFlotno()).setParameter("flotno", user.getFlotno()).
 						setParameter("userName",userName).setParameter("email",user.getEmail()).
 						setParameter("phoneno",user.getPhoneno());

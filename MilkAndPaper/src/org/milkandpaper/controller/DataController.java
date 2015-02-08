@@ -113,7 +113,7 @@ public class DataController {
 		return new ModelAndView("login");
 	}
 	
-	@RequestMapping(value="profile")
+	@RequestMapping(value="users/profile")
 	public ModelAndView getProfileForm() {
 		ModelAndView modelView=new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -141,7 +141,7 @@ public class DataController {
 		return modelView;
 	}
 	
-	@RequestMapping(value="getFeedbacks")
+	@RequestMapping(value="admin/getFeedbacks")
 	public ModelAndView getFeedbacks() {
 		ModelAndView modelView=new ModelAndView();
 		List feedbacks=dataService.getFeedbacks();
@@ -150,9 +150,10 @@ public class DataController {
 		return modelView;
 	}
 	
-	@RequestMapping(value="feedback")
+	@RequestMapping(value="users/feedback")
 	public ModelAndView getFeedbackForm() {
 		ModelAndView modelView=new ModelAndView();
+		modelView.addObject("feedback","active");
 		modelView.setViewName("users/feedback");
 		return modelView;
 	}
@@ -164,6 +165,7 @@ public class DataController {
 		String username = auth.getName(); //get logged in username
 		Users user=dataService.getUserByName(username);
 		modelView.addObject("user",user);
+		modelView.addObject("changeSub","active");
 		modelView.setViewName("users/subChangeReq");
 		return modelView;
 	}
@@ -177,7 +179,8 @@ public class DataController {
 		changeSub.setUser(user);
 		dataService.insertChangeSub(changeSub);
 		modelView.addObject("user",user);
-		modelView.addObject("changeSub",new ChangeSub() );
+//		modelView.addObject("changeSub",new ChangeSub() );
+		modelView.addObject("changeSub","active");
 		modelView.setViewName("users/subChangeReq");
 		return modelView;
 	}
@@ -192,7 +195,7 @@ public class DataController {
 		return modelView;
 	}
 	
-	@RequestMapping(value="updateReqUserDetails")
+	@RequestMapping(value="admin/updateReqUserDetails")
 	public ModelAndView getUpdateReqUserDetails() {
 		ModelAndView modelView=new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -281,7 +284,7 @@ public class DataController {
 	}
 	
 	
-	@RequestMapping(value="registration")
+	@RequestMapping(value="registration",method=RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute Users user) {
 		dataService.insertUser(user);
 		Users userrow=dataService.getUser(user.getId());
@@ -424,6 +427,7 @@ public class DataController {
 		modelView.addObject("username",username);
 		Users user=dataService.getUserByName(username);
 		modelView.addObject("user",user);
+		modelView.addObject("sub","active");
 		modelView.addObject("subscription",new Subscription());
 		modelView.setViewName("users/subscription");
 		return modelView;
@@ -448,6 +452,7 @@ public class DataController {
 		modelView.addObject("paperList",paperList);
 		modelView.addObject("milkList",milkList);
 		modelView.addObject("subscription",new Subscription());
+		modelView.addObject("sub","active");
 		modelView.setViewName("users/subscription");
 		return modelView;
 	}

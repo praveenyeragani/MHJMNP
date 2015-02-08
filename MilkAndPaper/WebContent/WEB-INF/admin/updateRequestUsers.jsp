@@ -1,5 +1,5 @@
 <%@include file="../common/header.jsp" %>
-<%@include file="../common/navigation.jsp" %>
+<%@include file="navigation.jsp" %>
 			<!-- BEGIN PAGE CONTENT-->
 			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/usersType" method="post">
 			<div class="form-body">
@@ -53,7 +53,7 @@
 									<c:out value="name:${user[0].firstname}" /> &nbsp;
 									<c:out value="${user[0].lastname}" /> <br />
 									<c:out value="username:${user[0].username}" /> <br />
-									<c:out value="block name:${user[0].blockname}" /> <br />
+									<c:out value="block name:${user[0].blockName}" /> <br />
 									<c:out value="floorno:${user[0].floorno}" /> <br />
 									<c:out value="flotno :${user[0].flotno}" /> <br />
 									<c:out value="reqest time :${user[0].updateReqTime}" /> <br />
@@ -64,7 +64,7 @@
 									<c:out value="name:${user[1].firstname}" /> &nbsp;
 									<c:out value="${user[1].lastname}" /> <br />
 									<c:out value="username:${user[1].username}" /> <br />
-									<c:out value="block name:${user[1].blockname}" /> <br />
+									<c:out value="block name:${user[1].blockName}" /> <br />
 									<c:out value="floorno:${user[1].floorno}" /> <br />
 									<c:out value="flotno :${user[1].flotno}" /> <br />
 								

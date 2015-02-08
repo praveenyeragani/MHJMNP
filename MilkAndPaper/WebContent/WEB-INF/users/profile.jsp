@@ -101,9 +101,9 @@
 													<div class="form-group">
 														<label class="control-label">Block no</label>
 														
-														<select name="blockname" class="form-control">
+														<select name="blockName" class="form-control">
 														         <c:forEach items="${blockNames}" var="blockName" varStatus="loop">
-																      <option value=${blockName} ${blockName==user.blockname? 'selected="selected"' : ''} >${blockName}</option>
+																      <option value=${blockName} ${blockName==user.blockName? 'selected="selected"' : ''} >${blockName}</option>
 																 </c:forEach>
 													   													   
 														</select>

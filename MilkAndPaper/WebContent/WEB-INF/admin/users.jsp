@@ -1,5 +1,5 @@
 <%@include file="../common/header.jsp" %>
-<%@include file="../common/navigation.jsp" %>
+<%@include file="navigation.jsp" %>
 			<!-- BEGIN PAGE CONTENT-->
 			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/usersType" method="post">
 			<div class="form-body">

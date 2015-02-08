@@ -132,28 +132,29 @@ var Login = function () {
 
 
 		$("#block").select2({
-		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Block',
+		  	placeholder: 'Select a Block',
             allowClear: true,
-            formatResult: format,
-            formatSelection: format,
+//            formatResult: format,
+//            formatSelection: format,
             escapeMarkup: function (m) {
                 return m;
             }
         });
 		$("#floor").select2({
-		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Floor',
+		  	placeholder: 'Select a Floor',
             allowClear: true,
-            formatResult: format,
-            formatSelection: format,
+//            formatResult: format,
+//            formatSelection: format,
             escapeMarkup: function (m) {
                 return m;
             }
         });
 		$("#flot").select2({
-		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Flot',
+//		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Flot',
+			placeholder: 'Select a Flot',
             allowClear: true,
-            formatResult: format,
-            formatSelection: format,
+//            formatResult: format,
+//            formatSelection: format,
             escapeMarkup: function (m) {
                 return m;
             }
@@ -253,10 +254,16 @@ var Login = function () {
 	            if (e.which == 13) {
 	                if ($('.register-form').validate().form()) {
 	                    $('.register-form').submit();
+	                  
 	                }
 	                return false;
 	            }
 	        });
+			
+			$('#username').focus(function(){
+				 $('blockno').validate();
+	             
+			});
 
 	        jQuery('#register-btn').click(function () {
 	            jQuery('.login-form').hide();
