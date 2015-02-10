@@ -64,6 +64,17 @@ jQuery(document).ready(function() {
    App.init();
    ComponentsPickers.init();
    FormValidation.init();
+   
+  
+   $('#profileUpdate').click(function(e){
+	   $("#form_sample_3").submit();
+		   
+   });
+   
+   $('#passwordForm').click(function(e){
+	   $("#form_sample_2").submit();
+		   
+   })
 });
 </script>
 </body>

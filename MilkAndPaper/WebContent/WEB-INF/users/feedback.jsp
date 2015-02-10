@@ -32,7 +32,7 @@
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/feedbackSubmit" method="post">
+			<sf:form class="form-horizontal" action="${pageContext.request.contextPath}/feedbackSubmit" method="post" id="form_sample_3">
 			<div class="form-body">
 			<div class="row">
 				<div class="col-md-10">

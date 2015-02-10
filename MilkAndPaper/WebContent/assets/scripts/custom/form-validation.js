@@ -90,34 +90,20 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",
                 rules: {
-                    name: {
-                        minlength: 2,
+                	newPassword: {
+                        minlength: 6,
                         required: true
                     },
-                    email: {
-                        required: true,
-                        email: true
+                    currentPassword: {
+                        required: true
+                       
                     },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    url: {
-                        required: true,
-                        url: true
-                    },
-                    number: {
-                        required: true,
-                        number: true
-                    },
-                    digits: {
-                        required: true,
-                        digits: true
-                    },
-                    creditcard: {
-                        required: true,
-                        creditcard: true
-                    },
+                    reTypePassword: {
+                    	 required: true,
+                    	 equalTo: "#newPassword"
+	                    
+	                },
+                    
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -147,10 +133,10 @@ var FormValidation = function () {
                     icon.removeClass("fa-warning").addClass("fa-check");
                 },
 
-                submitHandler: function (form) {
-                    success2.show();
-                    error2.hide();
-                }
+//                submitHandler: function (form) {
+//                    success2.show();
+//                    error2.hide();
+//                }
             });
 
 
@@ -179,11 +165,12 @@ var FormValidation = function () {
                 ignore: "",
                 
                 rules: {
-                    name: {
-                        minlength: 2,
+                	firstname: {
+                        minlength:3,
                         required: true
                     },
-					product: {
+                    lastname: {
+                    	minlength:3,
                         required: true
                     },
 					city: {
@@ -194,23 +181,25 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
-					contactno: {
+                    phoneno: {
 						required:true,
-						digits:true
+						digits:true,
+						minlength:10,
+						maxlength:10
 					},
                     email: {
                         required: true,
                         email: true
                     },
-                    state: {
+                    blockName: {
                         required: true
                     },
-					category:{
+                    floorno:{
 						required:true
 					},
-					quantity:{
-						required:true,
-						digits:true
+					flotno:{
+						required:true
+						
 					},
 					description:{
 						required:true

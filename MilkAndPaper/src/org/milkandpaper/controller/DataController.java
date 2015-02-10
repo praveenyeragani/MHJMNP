@@ -216,9 +216,13 @@ public class DataController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userName = auth.getName(); //get logged in username
 		Integer userId=dataService.updatePassword(userName,currentPassword,newPassword);
-		if(userId!=null)
+		Users user=dataService.getUserByName(userName);
+		if(userId!=0)
 			modelView.addObject("message","password updated successfully");
+		if(userId==0)
+			modelView.addObject("message","Enter correct password");
 		modelView.addObject("userName",userName);
+		modelView.addObject("user",user);
 		modelView.addObject("passwordActive","active");
 		modelView.setViewName("users/profile");
 		return modelView;
@@ -430,6 +434,44 @@ public class DataController {
 		modelView.addObject("sub","active");
 		modelView.addObject("subscription",new Subscription());
 		modelView.setViewName("users/subscription");
+		return modelView;
+	}
+	
+	@RequestMapping(value="users/afterLoginView")
+	public ModelAndView afterLoginView() {
+		//List<Users> userList=dataService.toBeApprovedUsers();
+		ModelAndView modelView=new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName(); //get logged in username
+		List papersub=dataService.getPaperSubscription(userName);
+		List milksub=dataService.getMilkSubscription(userName);
+		Users user=dataService.getUserByName(userName);
+		String isFirsTimeLogin=user.getLoginFirstTime().toString();
+		if(isFirsTimeLogin.equals("no"))
+		{
+			modelView.addObject("usersType",1);
+			modelView.addObject("paperList",paperList);
+			modelView.addObject("milkList",milkList);
+			modelView.addObject("milksub",milksub);
+			modelView.addObject("papersub",papersub);
+			modelView.addObject("username",userName);
+			modelView.addObject("user",user);
+			modelView.addObject("sub","active");
+			modelView.addObject("subscription",new Subscription());
+			modelView.setViewName("users/subscription");
+		}
+		
+		else if(isFirsTimeLogin.equals("yes")) {
+			dataService.updateFirstTimeLogin(user);
+			modelView.addObject("user",user);
+			modelView.addObject("profileActive","active");
+			modelView.addObject("floorNos",floorNos);
+			modelView.addObject("flotNos",flotNos);
+			modelView.addObject("blockNames",blockNames);
+			modelView.setViewName("users/profile");
+		}
+		
+	
 		return modelView;
 	}
 	

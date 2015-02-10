@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath()+"/users/subscription"); %>
+<% response.sendRedirect(request.getContextPath()+"/users/afterLoginView"); %>

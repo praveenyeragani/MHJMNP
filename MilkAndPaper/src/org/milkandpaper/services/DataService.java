@@ -36,4 +36,6 @@ public interface DataService {
 	public List getFeedbacks();
 	public int closeFeedback(int id);
 	public int insertChangeSub(ChangeSub changeSub);
+	public int updateFirstTimeLogin(Users user);
+	
 }

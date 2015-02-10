@@ -82,7 +82,9 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	@Column(name = "login_First_Time", nullable = false,columnDefinition = "default yes")
+	private String loginFirstTime="yes";
 	
 	
 //	public boolean isRegistered() {
@@ -92,6 +94,14 @@ public class Users {
 //	public void setRegistered(boolean isRegistered) {
 //		this.isRegistered = isRegistered;
 //	}
+
+	public String getLoginFirstTime() {
+		return loginFirstTime;
+	}
+
+	public void setLoginFirstTime(String loginFirstTime) {
+		this.loginFirstTime = loginFirstTime;
+	}
 
 	public Set<UserRole> getUserRole() {
 		return userRole;

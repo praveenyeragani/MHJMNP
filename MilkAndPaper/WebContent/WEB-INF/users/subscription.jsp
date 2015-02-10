@@ -47,7 +47,7 @@
 										</span>
 										</label>
 										<div class="col-md-4">
-											<select class="form-control" id="SubscriptionType" name="SubscriptionType" onchange="this.form.submit()">
+											<select class="form-control" id="SubscriptionType" name="SubscriptionType" >
 												
 												<option value="1" ${SubscriptionType == 1 ? 'selected="selected"' : ''}>Milk</option>
 												<option value="2" ${SubscriptionType == 2 ? 'selected="selected"' : ''}>Paper</option>
@@ -79,14 +79,14 @@
 						
 						
 						<div class="form-group">
-										<label class="control-label col-md-3">quantity
-										<span class="required">
-											 *
-										</span>
-										</label>
-										<div class="col-md-4">
-											<input type="text" name="quantity" data-required="1" class="form-control"/>
-										</div>
+							<label class="control-label col-md-3">quantity
+							<span class="required">
+								 *
+							</span>
+							</label>
+							<div class="col-md-4">
+								<input type="text" name="quantity" data-required="1" class="form-control"/>
+							</div>
 						</div>
 					
 						

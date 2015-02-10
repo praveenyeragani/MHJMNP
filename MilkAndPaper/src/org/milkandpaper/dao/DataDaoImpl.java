@@ -352,4 +352,18 @@ public class DataDaoImpl implements DataDao {
 		
 	} 
 	
+	@Override
+	public int updateFirstTimeLogin(Users user){
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query query=session.createQuery("Update Users set login_First_Time=:isFirstTimeLogin where id=:id").
+						setParameter("id", user.getId()).setParameter("isFirstTimeLogin","no");
+		int updateId =query.executeUpdate();
+		tx.commit();
+		session.close();
+		return updateId;
+		
+	}
+	
 }

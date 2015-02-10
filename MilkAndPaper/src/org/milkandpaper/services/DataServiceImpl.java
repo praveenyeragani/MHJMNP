@@ -134,4 +134,10 @@ public class DataServiceImpl implements DataService {
 	public int insertChangeSub(ChangeSub changeSub){
 		return dataDao.insertChangeSub(changeSub);
 	}
+	
+	@Override
+	public int updateFirstTimeLogin(Users user){
+		return dataDao.updateFirstTimeLogin(user);
+	}
+	
 }

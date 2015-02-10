@@ -171,7 +171,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Block No</label>
-			<select  id="block" class="select2 form-control" name="blockName">
+			<select  id="block" class="select2 form-control" name="blockName" >
 				<option></option>
 				<option value="agate">AGATE</option>
 				<option value="amethyst">AMETHYST</option>
@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">Flat No</label>
-			<select id="flot" class="form-control" name="flotno">
+			<select id="flot" class="form-control" name="flotno" >
 				<option value=""></option>
 				<option value="01">01</option>
 				<option value="02">02</option>
@@ -307,8 +307,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		jQuery(document).ready(function() {     
 		  App.init();
 		  Login.init();
-		  if($("blockName").val()!=''&&$("floorno").val()!=''&&$("flotno").val()!='')
-			  $("username").val($("blockName").val()+$("blockName").val()+$("blockName").val());
+		  $('#username').focus(function(){
+			 if($('#block').val()!=''&&$('#floor').val()!=''&&$('#flot').val()!='')
+			  $('#username').val($('#block').val()+$('#floor').val()+$('#flot').val());
+			  //$('#username')[0].value=$('#block').val()+$('#floor').val()+$('#flot').val();
+	             
+			});
 		  
 		});
 	</script>

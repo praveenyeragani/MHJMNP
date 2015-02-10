@@ -80,84 +80,115 @@
 									<div class="col-md-9">
 										<div class="tab-content">
 											<div id="tab_1-1" class="tab-pane ${profileActive}">
-												<sf:form role="form"  action="${pageContext.request.contextPath}/updateUserProfile" method="post" >
-													<div class="form-group">
-														<label class="control-label">First Name</label>
+												<sf:form role="form" action="${pageContext.request.contextPath}/updateUserProfile" method="post" id="form_sample_3" >
+													
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">First Name</label>
+														<div class="col-md-4">
 														<input type="text" name="firstname" value="${user.firstname}" class="form-control"/>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Last Name</label>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Last Name</label>
+														<div class="col-md-4">
 														<input type="text" name="lastname" value="${user.lastname}" class="form-control"/>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Mobile Number</label>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Mobile Number</label>
+														<div class="col-md-4">
 														<input type="text" name="phoneno" value="${user.phoneno}" class="form-control"/>
+														</div>
 													</div>
 													
-													<div class="form-group">
-														<label class="control-label">Email</label>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Email</label>
+														<div class="col-md-4">
 														<input type="text" name="email" value="${user.email}" class="form-control"/>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Block no</label>
-														
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Block no</label>
+														<div class="col-md-4">
 														<select name="blockName" class="form-control">
 														         <c:forEach items="${blockNames}" var="blockName" varStatus="loop">
 																      <option value=${blockName} ${blockName==user.blockName? 'selected="selected"' : ''} >${blockName}</option>
 																 </c:forEach>
 													   													   
 														</select>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Floor Number</label>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Floor Number</label>
+														<div class="col-md-4">
 														<select name="floorno" class="form-control">
 														         <c:forEach items="${floorNos}" var="floorNo" varStatus="loop">
 																      <option value=${floorNo}  ${floorNo ==user.floorno  ? 'selected="selected"' : ''}>${floorNo}</option>
 																 </c:forEach>
 													   													   
 														</select>
+														</div>
 													</div>
 													
-													<div class="form-group">
-														<label class="control-label">Flot Number</label>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-3">Flot Number</label>
+														<div class="col-md-4">
 														<select name="flotno" class="form-control">
 														         <c:forEach items="${flotNos}" var="flotNo" varStatus="loop">
 																      <option value=${flotNo}  ${flotNo==user.flotno? 'selected="selected"' : ''}>${flotNo}</option>
 																 </c:forEach>
 													   	</select>
+													   	</div>
 													</div>
 													
-													<div class="form-actions fluid">
-															<div class="col-md-offset-3 col-md-9">
-																<button type="submit" class="btn green">Save Changes</button>
-																<button type="button" class="btn default">Cancel</button>
-															</div>
+													<div class="margin-top-10 col-md-11">
+														<div class="col-md-3"></div>
+														<div class="col-md-7">
+														<a href="#" id="profileUpdate"   class="btn green">
+															 Update
+														</a>
+														
+														<a href="#" class="btn default">
+															 Cancel
+														</a>
+														</div>
+														
 													</div>
 												</sf:form>
 											</div>
 											<div id="tab_3-3" class="tab-pane ${passwordActive}" >
-												<sf:form id="changePassword" action="${pageContext.request.contextPath}/changePassword" method="post">
-													<div class="form-group">
-														<label class="control-label">Current Password</label>
+												<sf:form  action="${pageContext.request.contextPath}/changePassword" method="post" id="form_sample_2">
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-4">Current Password</label>
+														<div class="col-md-4">
 														<input type="password" name="currentPassword" class="form-control"/>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">New Password</label>
-														<input type="password" name="newPassword" class="form-control"/>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-4">New Password</label>
+														<div class="col-md-4">
+														<input type="password" id="newPassword" name="newPassword" class="form-control"/>
+														</div>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Re-type New Password</label>
-														<input type="password" class="form-control"/>
+													<div class="form-group col-md-11">
+														<label class="control-label col-md-4">Re-type New Password</label>
+														<div class="col-md-4">
+														<input type="password" name="reTypePassword" class="form-control"/>
+														</div>
 													</div>
-													<div class="margin-top-10">
-														<a href="#" onclick="document.getElementById('changePassword').submit()"   class="btn green">
+													<div class="margin-top-10 col-md-11">
+														<div class="col-md-3"></div>
+														<div class="col-md-7">
+														<a href="#" id="passwordForm"  class="btn green">
 															 Change Password
 														</a>
 														<a href="#" class="btn default">
 															 Cancel
 														</a>
+														</div>
 													</div>
 												</sf:form>
+													
 											</div>
 										</div>
 									</div>
